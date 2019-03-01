@@ -108,7 +108,7 @@ class Insync1991(Resource):
         limit = int(args.get('limit', 500))
         offset = int(args.get('offset', 0))
         filters = loads(args.get('filter', "{}"))
-        records = get_records('insyn_2018', filters, offset, limit)
+        records = get_records('insyn_1991', filters, offset, limit)
         if records is None:
             return {}, 401
 
