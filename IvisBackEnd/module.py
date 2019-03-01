@@ -20,7 +20,7 @@ def get_records(collection, filter, offset=0, limit=500):
         logging.error('Wrong filter format')
         return None
     try:
-        records = db['current_position'].find(filter=filter, skip=offset, limit=limit)
+        records = db[collections].find(filter=filter, skip=offset, limit=limit)
     except:
         logging.exception('ERROR')
         return None
