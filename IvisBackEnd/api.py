@@ -1,13 +1,16 @@
 from flask import Flask
 from flask_restful import Resource, Api
 from module import get_records
-from bson.json_util import dumps
+from flask_cors import CORS
 from json import loads
 from flask_restful import request
 import logging
+from flask import jsonify
+
 logging.basicConfig(filename='error.log',level=logging.ERROR)
 
 app = Flask(__name__)
+CORS(app)
 api = Api(app)
 
 def basic_validations(args):
@@ -62,7 +65,7 @@ class CurrentPositionRecords(Resource):
         if records is None:
             return {}, 401
 
-        return dumps(records)
+        return jsonify(records)
 
 class HistPositionRecords(Resource):
     def get(self):
@@ -79,7 +82,7 @@ class HistPositionRecords(Resource):
         if records is None:
             return {}, 401
 
-        return dumps(records)
+        return jsonify(records)
 
 class Insync2018(Resource):
     def get(self):
@@ -96,7 +99,7 @@ class Insync2018(Resource):
         if records is None:
             return {}, 401
 
-        return dumps(records)
+        return jsonify(records)
 
 class Insync1991(Resource):
     def get(self):
@@ -112,7 +115,7 @@ class Insync1991(Resource):
         if records is None:
             return {}, 401
 
-        return dumps(records)
+        return jsonify(records)
 
 class Instrumenmt(Resource):
     def get(self):
@@ -128,7 +131,7 @@ class Instrumenmt(Resource):
         if records is None:
             return {}, 401
 
-        return dumps(records)
+        return jsonify(records)
 
 
 

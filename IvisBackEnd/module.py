@@ -19,8 +19,9 @@ def get_records(collection, filter, offset=0, limit=500):
     if not isinstance(filter, dict):
         logging.error('Wrong filter format')
         return None
+
     try:
-        records = db['current_position'].find(filter=filter, skip=offset, limit=limit)
+        records = db[collection].find(filter=filter, projection={'_id': False}, skip=offset, limit=limit)
     except:
         logging.exception('ERROR')
         return None
