@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<style>
+		body {
+			font-family: Arial;
+			padding: 10px;
+			background: #121235;
+			color: #fafafa;
+		}
+
+		.axis-title{
+			font-size: 14px;
+			fill: #fafafa;
+			color: #fafafa;
+		}
+
+		.canvas {
+			border: 1px solid;
+		}
+
+		.bar-positive {
+		  fill: #396a93;
+			opacity: 1;
+		}
+
+		.bar-negative {
+		  fill: #650065;
+			opacity: 1;
+		}
+
+		.short {
+			fill: #ff7000;
+			opacity: 1;
+			visibility: visible;
+		}
+
+		.axis text {
+		  font: 10px sans-serif;
+		}
+
+		.axis path,
+		.axis line {
+		  fill: none;
+		  stroke: #000;
+		  shape-rendering: crispEdges;
+		}
+
+		div.tooltip {
+	    position: absolute;
+	    text-align: center;
+	    width: 140px;
+	    height: 50px;
+	    padding: 2px;
+	    font: 12px sans-serif;
+	    background: #404040;
+	    border: 0px;
+	    border-radius: 8px;
+	    pointer-events: none;
+		}
+	</style>
+
+	<head>
+		<meta charset="utf-8"/>
+		<title>Hello World</title>
+	</head>
+
+	<body>
+		<div class="d3">
+			<div class="tradeInfo" id="tradeDiv"> </div>
+			<div class="shortInfo" id="shortDiv"> </div>
+
+		<script src="https://d3js.org/d3.v5.min.js"></script>
+		<script src="hello.js"></script>
+
+	</body>
+</html>
