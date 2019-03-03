@@ -50,6 +50,10 @@ var tooltip = d3.select("body").append("div")
   .attr("class", "tooltip")
   .style("opacity", 0);
 
+var trades = d3.select("#graph")
+  .append("g")
+  .attr("id", "trades")
+
 //define X axis scale
 var xScale = d3.scaleBand()
   .range([margin.left, graphWidth])
@@ -64,6 +68,44 @@ var yLinearScale = d3.scaleLinear()
   .range([graphHeight, 0])
 var yScale = yLinearScale;
 
+var yAxisCall = d3.axisLeft(yScale)
+  .tickSize(3)
+  .tickPadding(10)  //offset away from axis
+
+var xAxisCall = d3.axisBottom(xScale)
+  .tickSize(3)
+  .tickPadding(3)
+
+var xAxis = d3.select("#graph").append("g")
+  .attr("class", "x-axis")
+  .call(xAxisCall)
+  .selectAll("text")
+  .style("text-anchor", "start")
+  .attr("transform", "rotate(65), translate(10, -10)")
+
+var yAxis = d3.select("#graph").append("g")
+  .attr("class", "y-axis")
+
+//axis labels
+d3.select("#canvas1").append("text")
+.attr("id", "x-axis-title")
+.attr("class", "axis-title")
+.attr("text-anchor", "middle")
+.attr("transform", "translate(" + (width * (7/8)) + "," + (height - 10) +")")
+.text("X AXIS LABEL")
+d3.select("#canvas1").append("text")
+.attr("id", "y-axis-title")
+.attr("class", "axis-title")
+.attr("text-anchor", "middle")
+.attr("transform", "translate(" + (margin.left / 2) + "," + (graphHeight/2 + margin.top) +"), rotate(-90)")
+.text("Y AXIS LABEL")
+d3.select("#canvas2").append("text")
+.attr("id", "short-axis-title")
+.attr("class", "axis-title")
+.attr("text-anchor", "middle")
+.attr("transform", "translate(" + margin.left + "," + subfield/2 +")")
+.text("Shorts")
+
 var insightLocal = "insightGetinge.json"
 var shortposLocal = "curposGetinge.json"
 var insightURL = "http://ivis.southeastasia.cloudapp.azure.com:5000/insync2018/"
@@ -73,7 +115,7 @@ limit = 500
 insightURL += ("?limit=" + limit) + ("&filter={\"isin\":\"" + isin + "\"}")
 shortposURL += ("?limit=" + limit) + ("&filter={\"isin\":\"" + isin + "\"}")
 
-var useLocalData = false
+var useLocalData = true
 var insightSource = insightURL
 var shortposSource = shortposURL
 if (useLocalData) {
@@ -84,27 +126,14 @@ if (useLocalData) {
 //draw initial/default graph
 update(insightSource, shortposSource)
 
-//load data and draw a graph
-function update(i, s){
-  // ugly and slow clear variant, should preferrably be reworked to use merging with pretty animations
-  d3.selectAll(".bar").remove()
-  d3.selectAll(".short").remove()
-  d3.selectAll(".x-axis").remove()
-  d3.selectAll(".y-axis").remove()
-  d3.selectAll(".axis-title").remove()
-
-  var year = d3.select("#year").property("value")
-  Promise.all([
-    d3.json(i),
-    d3.json(s)
-  ]).then(function(data){
+function chart(data) {
     var trades = data[0]
     var curpos = data[1]
 
     // Create a new array with the accumulated data
-    var accumulated = [];
+    var accumulatedTrades = [];
     for (var i = 0; i < 12; i++){
-      accumulated.push({"month":months[i], "value":0});
+      accumulatedTrades.push({"month":months[i], "value":0});
     }
 
     trades.forEach(function(d) {
@@ -112,32 +141,35 @@ function update(i, s){
       d.year = convertInsightDate(d.transaction_date).getFullYear();
     });
 
+    var year = d3.select("#year").property("value")
+    console.log(year)
     trades = trades.filter(function(d){return d.year == year})
 
     trades.forEach(function(d) {
-      accumulated[d.month].value += d.trade == "Avyttring"? -d.volume : d.volume;
+      accumulatedTrades[d.month].value += d.trade == "Avyttring"? -d.volume : d.volume;
     })
 
     //set scaling domains
-    xScale.domain(accumulated.map(function (d, i) {
+    xScale.domain(accumulatedTrades.map(function (d, i) {
       return i;
     }));
-    yScale.domain(d3.extent(accumulated, function(d) {
+    yScale.domain(d3.extent(accumulatedTrades, function(d) {
       return d.value
     })).nice();
 
     //perform joins
-    var bars = d3.select("#graph")
-      .append("g")
-        .attr("id", "trades")
-        .selectAll("rect")
-        .data(accumulated)
+    var bars = d3.select("#trades")
+      .selectAll("rect")
+      .data(accumulatedTrades)
 
     var shorts = d3.select("#shortGraph")
       .append("g")
       .attr("id", "shorts")
       .selectAll("circle")
       .data(curpos)
+
+    bars.exit().remove()
+    shorts.exit().remove()
 
     bars.enter().append("rect")
       .attr("class", function(d) {
@@ -148,6 +180,9 @@ function update(i, s){
       .attr("x", function(d, i) {
         return xScale(i);
       })
+      .attr("width", xScale.bandwidth())
+      .merge(bars)
+      .transition().duration(750)
       .attr("y", function(d){
         if (d.value < 0) {
           return yScale(0)
@@ -155,7 +190,6 @@ function update(i, s){
           return (yScale(+d.value))
         }
       })
-      .attr("width", xScale.bandwidth())
       .attr("height", function(d) {
         return (yScale(0) - yScale(+ Math.abs(d.value)))
       })
@@ -189,54 +223,35 @@ function update(i, s){
               .style("opacity", 0);
       });
 
-      bars.exit().remove()
-      shorts.exit().remove()
-
-      var yAxisCall = d3.axisLeft(yScale)
-        .tickSize(3)
-        .tickPadding(10)  //offset away from axis
-      var yAxis = d3.select("#graph").append("g")
-        .attr("class", "y-axis")
+      d3.select(".y-axis")
+        .transition()
+        .duration(750)
         .attr("transform", "translate(" + xScale(0) + "," + 0 + ")")
         .call(yAxisCall)
 
       xScale.domain(months);
-      var xAxisCall = d3.axisBottom(xScale)
-        .tickSize(3)
-        .tickPadding(3)
 
-      var xAxis = d3.select("#graph").append("g")
-        .attr("class", "x-axis")
+      d3.select(".x-axis")
+        .transition()
+        .duration(750)
         .attr("transform", "translate(" + 0 + "," + yScale(0) + ")")
-        .call(xAxisCall)
-        .selectAll("text")
-        .style("text-anchor", "start")
-        .attr("transform", "rotate(65), translate(10, -10)")
 
-      //axis labels
-      d3.select("#canvas1").append("text")
-        .attr("id", "x-axis-title")
-        .attr("class", "axis-title")
-        .attr("text-anchor", "middle")
-        .attr("transform", "translate(" + (width * (7/8)) + "," + (height - 10) +")")
-        .text("X AXIS LABEL")
-      d3.select("#canvas1").append("text")
-        .attr("id", "y-axis-title")
-        .attr("class", "axis-title")
-        .attr("text-anchor", "middle")
-        .attr("transform", "translate(" + (margin.left / 2) + "," + (graphHeight/2 + margin.top) +"), rotate(-90)")
-      .text("Y AXIS LABEL")
-      d3.select("#canvas2").append("text")
-        .attr("id", "short-axis-title")
-        .attr("class", "axis-title")
-        .attr("text-anchor", "middle")
-        .attr("transform", "translate(" + margin.left + "," + subfield/2 +")")
-      .text("Shorts")
-  });
 }
-// d3.select("#logscale").on("click", function() {
-//   update(insightSource, shortposSource);
-// });
+
+//load data and draw a graph
+function update(i, s){
+  // ugly and slow clear variant, should preferrably be reworked to use merging with pretty animations
+  d3.selectAll(".short").remove()
+
+  Promise.all([
+    d3.json(i),
+    d3.json(s)
+  ]).then(d=>chart(d));
+}
+
+d3.select("#logscale").on("click", function() {
+  update(insightSource, shortposSource);
+});
 var select = d3.select("#year")
     .style("border-radius", "5px")
     .on("change", function() {
