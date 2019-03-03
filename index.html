@@ -228,9 +228,6 @@ function main(o, data) {
         .classed("children", true)
         .on("click", transition);
 
-    // Very hacky solution, but I didn't find any other way to add OnClick to children
-    g.on("click", transition)
-
     var children = g.selectAll(".child")
         .data(function(d) { return d._children || [d]; })
       .enter().append("g");
@@ -273,7 +270,7 @@ function main(o, data) {
       //console.log(d)
       if (transitioning || !d) return;
       if (d._children[0]._children == undefined) {  // Leaf nodes have no children.
-        window.open('insightbarint.html?isin=' + d.key, '_blank');
+        window.open('barchart/index.html?isin=' + d.key, '_blank');
         return;
       }
 
