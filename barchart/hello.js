@@ -5,6 +5,9 @@ if (isin == false) {
   isin = "SE0000202624";
 }
 
+d3.select("#heading")
+  .text("Insight: " + isin)
+
 var months = ["January", "February", "Mars", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 function convertInsightDate(insightDate) {
@@ -17,7 +20,7 @@ var options = d3.select("#year").selectAll("option")
   .data([2019, 2018, 2017, 2016])
 	.enter().append("option")
   .text(d => d)
-  .property("selected", function(d){ return d === 2018; })
+  .property("selected", function(d){ return d === 2018; }) // Select 2018 by default (useful for dev since we only have 2018 insync)
 
 var width = 800,
     height = 300;
@@ -120,7 +123,7 @@ limit = 500
 insightURL += ("?limit=" + limit) + ("&filter={\"isin\":\"" + isin + "\"}")
 shortposURL += ("?limit=" + limit) + ("&filter={\"isin\":\"" + isin + "\"}")
 
-var useLocalData = true
+var useLocalData = false
 var insightSource = insightURL
 var shortposSource = shortposURL
 if (useLocalData) {
