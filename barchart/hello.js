@@ -122,33 +122,36 @@ d3.select("#canvas2").append("text")
 .attr("transform", "translate(" + margin.left + "," + subfield/2 +")")
 .text("Shorts")
 
-var insightLocal = "insightGetinge.json"
-var shortposLocal = "curposGetinge.json"
+var insightLocal = "insight.json"
+var insightLocal2018 = "insight2018.json"
+var shortposLocal = "curpos.json"
 var insightURL = "http://ivis.southeastasia.cloudapp.azure.com:5000/insync1991/"
 var insightURL2018 = "http://ivis.southeastasia.cloudapp.azure.com:5000/insync2018/"
 var shortposURL = "http://ivis.southeastasia.cloudapp.azure.com:5000/currentPosition/"
 
-limit = 500
+limit = 1000
 insightURL += ("?limit=" + limit) + ("&filter={\"isin\":\"" + isin + "\"}")
 insightURL2018 += ("?limit=" + limit) + ("&filter={\"isin\":\"" + isin + "\"}")
 shortposURL += ("?limit=" + limit) + ("&filter={\"isin\":\"" + isin + "\"}")
 
 var useLocalData = false
 var insightSource = insightURL
+var insightSource2018 = insightURL2018
 var shortposSource = shortposURL
 if (useLocalData) {
   insightSource = insightLocal
+  insightSource2018 = insightLocal2018
   shortposSource = shortposLocal
 }
 
-// This is probably not a vey d3 way to do things, but it seems to work well enough
+// This is probably not a very d3 way to do things, but it seems to work well enough
 var trades = []
 var curpos = []
 
 Promise.all([
-  d3.json(insightURL),
-  d3.json(shortposURL),
-  d3.json(insightURL2018)
+  d3.json(insightSource),
+  d3.json(shortposSource),
+  d3.json(insightSource2018)
 ]).then(function(data)
 {
   trades = data[0]
@@ -166,20 +169,23 @@ function update(trades, curpos) {
       accumulatedTradesNeg.push({"month":months[i], "value":0});
     }
 
-    if (trades.length > 0) {
-      var companyName = "";
-      if (trades[0].issuer) {
-        companyName = trades[0].issuer.split("\(")[0];
-      }
-      if (trades[0].Issuer)
-      {
-        companyName = trades[0].Issuer.split("\(")[0]
-      }
-      d3.select("#heading")
+    trades.forEach(e => {
+      if (e.isin == isin) {
+        var companyName = "";
+        if (e.issuer) {
+          companyName = e.issuer.split("\(")[0];
+        }
+        if (e.Issuer)
+        {
+          companyName = e.Issuer.split("\(")[0]
+        }
+        d3.select("#heading")
+          .text("Insight: " + companyName + " (" + isin + ")")
+        d3.select("#title")
         .text("Insight: " + companyName + " (" + isin + ")")
-      d3.select("#title")
-      .text("Insight: " + companyName + " (" + isin + ")")
-    }
+        return;
+      }
+    });
 
     trades.forEach(function(d) {
       var date = convertInsightDate(d.transaction_date);
@@ -188,8 +194,10 @@ function update(trades, curpos) {
     });
 
     var year = d3.select("#year").property("value")
-    trades = trades.filter(function(d){return d.year == year})
-    curpos = curpos.filter(function(d){return d.position_date.split("-")[0] == year})
+    trades = trades.filter(function(d){return d.year == year && d.isin == isin})
+    curpos = curpos.filter(function(d){return d.isin == isin && d.position_date.split("-")[0] == year})
+
+
 
     trades.forEach(function(d) {
       var value = d.volume;

@@ -1,1 +1,877 @@
-[{"_id": {"$oid": "5c6987d67daa9a69a93f257f"}, "position_holder": "TOWER HOUSE PARTNERS LLP", "issuer_name": "GETINGE AB", "isin": "SE0000202624", "position_in_percent": 0.77, "position_date": "2019-01-30"}, {"_id": {"$oid": "5c6987d67daa9a69a93f25aa"}, "position_holder": "PICTET ASSET MANAGEMENT LIMITED", "issuer_name": "BETSSON AB", "isin": "SE0006993986", "position_in_percent": 0.96, "position_date": "2019-01-17"}]
+[
+  {
+    "isin": "SE0000202624",
+    "issuer_name": "GETINGE AB",
+    "position_date": "2019-01-30",
+    "position_holder": "TOWER HOUSE PARTNERS LLP",
+    "position_in_percent": 0.77
+  },
+  {
+    "isin": "SE0006993986",
+    "issuer_name": "BETSSON AB",
+    "position_date": "2019-01-17",
+    "position_holder": "PICTET ASSET MANAGEMENT LIMITED",
+    "position_in_percent": 0.96
+  },
+  {
+    "isin": "SE0000108227",
+    "issuer_name": "AKTIEBOLAGET SKF",
+    "position_date": "2019-01-28",
+    "position_holder": "CITADEL ADVISORS LLC",
+    "position_in_percent": 0.74
+  },
+  {
+    "isin": "SE0007691613",
+    "issuer_name": "DOMETIC GROUP AB (PUBL)",
+    "position_date": "2019-01-28",
+    "position_holder": "AHL PARTNERS LLP",
+    "position_in_percent": 0.78
+  },
+  {
+    "isin": "SE0001824004",
+    "issuer_name": "G5 ENTERTAINMENT AB (PUBL)",
+    "position_date": "2019-01-25",
+    "position_holder": "PDT PARTNERS, LLC",
+    "position_in_percent": 0.89
+  },
+  {
+    "isin": "SE0000117970",
+    "issuer_name": "NCC AKTIEBOLAG",
+    "position_date": "2019-01-24",
+    "position_holder": "BLACKROCK INSTITUTIONAL TRUST COMPANY, NATIONAL ASSOCIATION",
+    "position_in_percent": 0.89
+  },
+  {
+    "isin": "SE0003366871",
+    "issuer_name": "SAS AB",
+    "position_date": "2019-01-24",
+    "position_holder": "D. E. SHAW & CO. (LONDON), LLP ",
+    "position_in_percent": 0.9
+  },
+  {
+    "isin": "SE0000375115",
+    "issuer_name": "MYCRONIC AB (PUBL)",
+    "position_date": "2019-01-23",
+    "position_holder": "GMT CAPITAL CORP",
+    "position_in_percent": 2.26
+  },
+  {
+    "isin": "SE0000117970",
+    "issuer_name": "NCC AKTIEBOLAG",
+    "position_date": "2019-01-21",
+    "position_holder": "AHL PARTNERS LLP",
+    "position_in_percent": 0.98
+  },
+  {
+    "isin": "SE0000117970",
+    "issuer_name": "NCC AKTIEBOLAG",
+    "position_date": "12/12/2018",
+    "position_holder": "SFM UK MANAGEMENT LLP",
+    "position_in_percent": 0.55
+  },
+  {
+    "isin": "SE0010468116",
+    "issuer_name": "ARJO AB (PUBL)",
+    "position_date": "4/25/2018",
+    "position_holder": "TOWER HOUSE PARTNERS LLP",
+    "position_in_percent": 1.03
+  },
+  {
+    "isin": "SE0000936478",
+    "issuer_name": "INTRUM AB",
+    "position_date": "2019-01-17",
+    "position_holder": "NAYA CAPITAL MANAGEMENT UK LIMITED",
+    "position_in_percent": 0.64
+  },
+  {
+    "isin": "SE0000117970",
+    "issuer_name": "NCC AKTIEBOLAG",
+    "position_date": "1/8/2019",
+    "position_holder": "WORLDQUANT, LLC",
+    "position_in_percent": 0.59
+  },
+  {
+    "isin": "SE0000135485",
+    "issuer_name": "RAYSEARCH LABORATORIES AB (PUBL)",
+    "position_date": "2019-01-03",
+    "position_holder": "KEEL CAPITAL S.A., SICAV-SIF \u2013 FOGHORN X2",
+    "position_in_percent": 0.56
+  },
+  {
+    "isin": "SE0009921588",
+    "issuer_name": "BILIA AB",
+    "position_date": "12/21/2018",
+    "position_holder": "KEEL CAPITAL S.A., SICAV-SIF \u2013 FOGHORN X2",
+    "position_in_percent": 0.64
+  },
+  {
+    "isin": "CA46016U1084",
+    "issuer_name": "INTERNATIONAL PETROLEUM CORPORATION OF SWEDEN",
+    "position_date": "12/12/2018",
+    "position_holder": "COWEN INVESTMENT MANAGEMENT LLC",
+    "position_in_percent": 0.66
+  },
+  {
+    "isin": "SE0000375115",
+    "issuer_name": "MYCRONIC AB (PUBL)",
+    "position_date": "7/10/2018",
+    "position_holder": "CPMG, INC.",
+    "position_in_percent": 6.31
+  },
+  {
+    "isin": "SE0000806994",
+    "issuer_name": "JM AB",
+    "position_date": "2019-01-22",
+    "position_holder": "MARSHALL WACE LLP",
+    "position_in_percent": 2.96
+  },
+  {
+    "isin": "SE0000862997",
+    "issuer_name": "BILLERUDKORSN\u00c4S AKTIEBOLAG (PUBL)",
+    "position_date": "2019-01-16",
+    "position_holder": "SYSTEMATICA INVESTMENTS LIMITED",
+    "position_in_percent": 0.5
+  },
+  {
+    "isin": "SE0000135485",
+    "issuer_name": "RAYSEARCH LABORATORIES AB (PUBL)",
+    "position_date": "12/14/2018",
+    "position_holder": "JPMORGAN ASSET MANAGEMENT (UK) LTD",
+    "position_in_percent": 0.73
+  },
+  {
+    "isin": "SE0008008262",
+    "issuer_name": "GARO AKTIEBOLAG",
+    "position_date": "2018-10-30",
+    "position_holder": "ELEMENTA MANAGEMENT AB",
+    "position_in_percent": 0.6
+  },
+  {
+    "isin": "SE0010323311",
+    "issuer_name": "BIOARCTIC AB",
+    "position_date": "2019-01-29",
+    "position_holder": "MILLENNIUM INTERNATIONAL MANAGEMENT LP",
+    "position_in_percent": 1.1
+  },
+  {
+    "isin": "SE0000806994",
+    "issuer_name": "JM AB",
+    "position_date": "2019-01-25",
+    "position_holder": "AHL PARTNERS LLP",
+    "position_in_percent": 1.08
+  },
+  {
+    "isin": "SE0009806607",
+    "issuer_name": "MUNTERS GROUP AB",
+    "position_date": "2019-01-29",
+    "position_holder": "ENGADINE PARTNERS LLP",
+    "position_in_percent": 1.65
+  },
+  {
+    "isin": "SE0000170110",
+    "issuer_name": "AVANZA BANK HOLDING AB",
+    "position_date": "2019-01-17",
+    "position_holder": "BODENHOLM CAPITAL AB",
+    "position_in_percent": 1.16
+  },
+  {
+    "isin": "SE0000806994",
+    "issuer_name": "JM AB",
+    "position_date": "2019-01-23",
+    "position_holder": "CITADEL ADVISORS II LLC",
+    "position_in_percent": 0.52
+  },
+  {
+    "isin": "SE0000108227",
+    "issuer_name": "AKTIEBOLAGET SKF",
+    "position_date": "2019-01-29",
+    "position_holder": "CITADEL EUROPE LLP",
+    "position_in_percent": 1.5
+  },
+  {
+    "isin": "SE0000652216",
+    "issuer_name": "ICA GRUPPEN AKTIEBOLAG",
+    "position_date": "2019-01-29",
+    "position_holder": "NATIXIS SA",
+    "position_in_percent": 0.51
+  },
+  {
+    "isin": "SE0002110064",
+    "issuer_name": "MEKONOMEN AKTIEBOLAG",
+    "position_date": "2019-01-28",
+    "position_holder": "MARSHALL WACE LLP",
+    "position_in_percent": 0.66
+  },
+  {
+    "isin": "SE0000112385",
+    "issuer_name": "SAAB AKTIEBOLAG",
+    "position_date": "2019-01-25",
+    "position_holder": "MARSHALL WACE LLP",
+    "position_in_percent": 1.19
+  },
+  {
+    "isin": "SE0001662230",
+    "issuer_name": "HUSQVARNA AKTIEBOLAG",
+    "position_date": "2019-01-25",
+    "position_holder": "MARSHALL WACE LLP",
+    "position_in_percent": 0.61
+  },
+  {
+    "isin": "SE0009806607",
+    "issuer_name": "MUNTERS GROUP AB",
+    "position_date": "12/18/2018",
+    "position_holder": "TT INTERNATIONAL",
+    "position_in_percent": 1.43
+  },
+  {
+    "isin": "SE0000202624",
+    "issuer_name": "GETINGE AB",
+    "position_date": "2018-11-01",
+    "position_holder": "BLACKROCK INVESTMENT MANAGEMENT (UK) LIMITED",
+    "position_in_percent": 0.86
+  },
+  {
+    "isin": "SE0000117970",
+    "issuer_name": "NCC AKTIEBOLAG",
+    "position_date": "6/20/2018",
+    "position_holder": "CANADA PENSION PLAN INVESTMENT BOARD",
+    "position_in_percent": 1.0
+  },
+  {
+    "isin": "SE0010948588",
+    "issuer_name": "BYGGHEMMA GROUP FIRST AB",
+    "position_date": "6/1/2018",
+    "position_holder": "ENNISMORE FUND MANAGEMENT LIMITED",
+    "position_in_percent": 1.0
+  },
+  {
+    "isin": "SE0000202624",
+    "issuer_name": "GETINGE AB",
+    "position_date": "2019-01-25",
+    "position_holder": "MARSHALL WACE LLP",
+    "position_in_percent": 1.51
+  },
+  {
+    "isin": "SE0000113250",
+    "issuer_name": "SKANSKA AB",
+    "position_date": "2019-01-11",
+    "position_holder": "MARSHALL WACE LLP",
+    "position_in_percent": 0.68
+  },
+  {
+    "isin": "SE0000584948",
+    "issuer_name": "CLAS OHLSON AB",
+    "position_date": "12/24/2018",
+    "position_holder": "GMT CAPITAL CORP",
+    "position_in_percent": 0.55
+  },
+  {
+    "isin": "SE0006593901",
+    "issuer_name": "KL\u00d6VERN AB",
+    "position_date": "2018-12-04",
+    "position_holder": "MARSHALL WACE LLP",
+    "position_in_percent": 0.62
+  },
+  {
+    "isin": "SE0007491303",
+    "issuer_name": "BRAVIDA HOLDING AB",
+    "position_date": "2018-11-12",
+    "position_holder": "AKO CAPITAL LLP",
+    "position_in_percent": 1.01
+  },
+  {
+    "isin": "SE0000202624",
+    "issuer_name": "GETINGE AB",
+    "position_date": "2018-10-16",
+    "position_holder": "ADELPHI CAPITAL LLP",
+    "position_in_percent": 0.97
+  },
+  {
+    "isin": "SE0000108656",
+    "issuer_name": "TELEFONAKTIEBOLAGET LM ERICSSON",
+    "position_date": "2019-01-24",
+    "position_holder": "AQR CAPITAL MANAGEMENT, LLC",
+    "position_in_percent": 0.88
+  },
+  {
+    "isin": "SE0000806994",
+    "issuer_name": "JM AB",
+    "position_date": "2019-01-18",
+    "position_holder": "RYE BAY CAPITAL LLP",
+    "position_in_percent": 1.63
+  },
+  {
+    "isin": "SE0003303627",
+    "issuer_name": "BYGGMAX GROUP AB",
+    "position_date": "2019-01-11",
+    "position_holder": "KEEL CAPITAL S.A., SICAV-SIF \u2013 FOGHORN FUND",
+    "position_in_percent": 0.52
+  },
+  {
+    "isin": "SE0007100581",
+    "issuer_name": "ASSA ABLOY AB",
+    "position_date": "1/8/2019",
+    "position_holder": "VIKING GLOBAL INVESTORS LP",
+    "position_in_percent": 0.66
+  },
+  {
+    "isin": "SE0000936478",
+    "issuer_name": "INTRUM AB",
+    "position_date": "12/27/2018",
+    "position_holder": "LANSDOWNE PARTNERS (UK) LLP",
+    "position_in_percent": 1.02
+  },
+  {
+    "isin": "SE0000936478",
+    "issuer_name": "INTRUM AB",
+    "position_date": "8/28/2018",
+    "position_holder": "PELHAM LONG SHORT MASTER FUND LTD",
+    "position_in_percent": 1.93
+  },
+  {
+    "isin": "SE0005999778",
+    "issuer_name": "COM HEM HOLDING AB",
+    "position_date": "5/28/2018",
+    "position_holder": "DNB ASSET MANAGEMENT AS",
+    "position_in_percent": 1.09
+  },
+  {
+    "isin": "SE0000652216",
+    "issuer_name": "ICA GRUPPEN AKTIEBOLAG",
+    "position_date": "2019-01-17",
+    "position_holder": "MARSHALL WACE LLP",
+    "position_in_percent": 1.09
+  },
+  {
+    "isin": "SE0008242358",
+    "issuer_name": "BETSSON AB",
+    "position_date": "2019-01-16",
+    "position_holder": "CITADEL ADVISORS LLC",
+    "position_in_percent": 1.12
+  },
+  {
+    "isin": "SE0006288015",
+    "issuer_name": "GR\u00c4NGES AB",
+    "position_date": "2019-01-11",
+    "position_holder": "GLG PARTNERS LP",
+    "position_in_percent": 0.72
+  },
+  {
+    "isin": "SE0000862997",
+    "issuer_name": "BILLERUDKORSN\u00c4S AKTIEBOLAG (PUBL)",
+    "position_date": "2018-12-05",
+    "position_holder": "CONNOR, CLARK & LUNN INVESTMENT MANAGEMENT LTD.",
+    "position_in_percent": 0.7
+  },
+  {
+    "isin": "SE0010323311",
+    "issuer_name": "BIOARCTIC AB",
+    "position_date": "2018-12-03",
+    "position_holder": "MARSHALL WACE LLP",
+    "position_in_percent": 0.6
+  },
+  {
+    "isin": "SE0006993770",
+    "issuer_name": "AXFOOD AKTIEBOLAG",
+    "position_date": "2018-10-24",
+    "position_holder": "ENGADINE PARTNERS LLP",
+    "position_in_percent": 0.51
+  },
+  {
+    "isin": "SE0002683557",
+    "issuer_name": "LOOMIS AB",
+    "position_date": "9/3/2018",
+    "position_holder": "MARSHALL WACE ASIA LIMITED",
+    "position_in_percent": 0.6
+  },
+  {
+    "isin": "SE0008374250",
+    "issuer_name": "FINGERPRINT CARDS AB",
+    "position_date": "6/1/2017",
+    "position_holder": "WHALE ROCK CAPITAL MANAGEMENT, LLC",
+    "position_in_percent": 1.92
+  },
+  {
+    "isin": "SE0000111940",
+    "issuer_name": "RATOS AB",
+    "position_date": "2019-01-24",
+    "position_holder": "MARSHALL WACE LLP",
+    "position_in_percent": 0.51
+  },
+  {
+    "isin": "SE0000695876",
+    "issuer_name": "ALFA LAVAL AB",
+    "position_date": "2019-01-24",
+    "position_holder": "CITADEL EUROPE LLP",
+    "position_in_percent": 0.81
+  },
+  {
+    "isin": "SE0003366871",
+    "issuer_name": "SAS AB",
+    "position_date": "2019-01-16",
+    "position_holder": "BLACKROCK INSTITUTIONAL TRUST COMPANY, NATIONAL ASSOCIATION",
+    "position_in_percent": 0.6
+  },
+  {
+    "isin": "SE0000936478",
+    "issuer_name": "INTRUM AB",
+    "position_date": "1/9/2019",
+    "position_holder": "ENGADINE PARTNERS LLP",
+    "position_in_percent": 0.7
+  },
+  {
+    "isin": "SE0006625471",
+    "issuer_name": "DUSTIN GROUP AB",
+    "position_date": "2019-01-09",
+    "position_holder": "DNB ASSET MANAGEMENT AS",
+    "position_in_percent": 2.14
+  },
+  {
+    "isin": "SE0002683557",
+    "issuer_name": "LOOMIS AB",
+    "position_date": "2019-01-04",
+    "position_holder": "CONTOUR ASSET MANAGEMENT",
+    "position_in_percent": 1.58
+  },
+  {
+    "isin": "SE0000107724",
+    "issuer_name": "KABE GROUP AB",
+    "position_date": "2018-10-31",
+    "position_holder": "ELEMENTA MANAGEMENT AB",
+    "position_in_percent": 0.51
+  },
+  {
+    "isin": "SE0011062728",
+    "issuer_name": "HIQ INTERNATIONAL AB",
+    "position_date": "2018-10-25",
+    "position_holder": "JPMORGAN ASSET MANAGEMENT (UK) LTD",
+    "position_in_percent": 0.73
+  },
+  {
+    "isin": "SE0009888738",
+    "issuer_name": "BOOZT AB",
+    "position_date": "2018-10-11",
+    "position_holder": "JPMORGAN ASSET MANAGEMENT (UK) LTD",
+    "position_in_percent": 0.59
+  },
+  {
+    "isin": "SE0000862997",
+    "issuer_name": "BILLERUDKORSN\u00c4S AKTIEBOLAG (PUBL)",
+    "position_date": "7/27/2018",
+    "position_holder": "MERIAN GLOBAL INVESTORS (UK) LIMITED",
+    "position_in_percent": 0.83
+  },
+  {
+    "isin": "SE0000163628",
+    "issuer_name": "ELEKTA AB (PUBL)",
+    "position_date": "6/1/2018",
+    "position_holder": "BDL CAPITAL MANAGEMENT",
+    "position_in_percent": 0.84
+  },
+  {
+    "isin": "isin",
+    "issuer_name": "issuer_name",
+    "position_date": "position_date",
+    "position_holder": "position_holder",
+    "position_in_percent": "position_in_percent"
+  },
+  {
+    "isin": "SE0005757267",
+    "issuer_name": "RECIPHARM AB (PUBL)",
+    "position_date": "2019-01-25",
+    "position_holder": "KEEL CAPITAL S.A., SICAV-SIF \u2013 FOGHORN X2",
+    "position_in_percent": 0.5
+  },
+  {
+    "isin": "SE0000936478",
+    "issuer_name": "INTRUM AB",
+    "position_date": "2019-01-18",
+    "position_holder": "MARSHALL WACE LLP",
+    "position_in_percent": 1.6
+  },
+  {
+    "isin": "SE0000806994",
+    "issuer_name": "JM AB",
+    "position_date": "2019-01-15",
+    "position_holder": "ODEY ASSET MANAGEMENT LLP",
+    "position_in_percent": 3.57
+  },
+  {
+    "isin": "SE0002683557",
+    "issuer_name": "LOOMIS AB",
+    "position_date": "2019-01-07",
+    "position_holder": "MARSHALL WACE LLP",
+    "position_in_percent": 0.88
+  },
+  {
+    "isin": "SE0000936478",
+    "issuer_name": "INTRUM AB",
+    "position_date": "8/20/2018",
+    "position_holder": "THUNDERBIRD PARTNERS LLP",
+    "position_in_percent": 1.22
+  },
+  {
+    "isin": "SE0000375115",
+    "issuer_name": "MYCRONIC AB (PUBL)",
+    "position_date": "7/12/2017",
+    "position_holder": "MAPLE ROCK CAPITAL PARTNERS INC.",
+    "position_in_percent": 0.51
+  },
+  {
+    "isin": "SE0008091904",
+    "issuer_name": "LEOVEGAS AB (PUBL)",
+    "position_date": "2019-01-23",
+    "position_holder": "GSA CAPITAL PARTNERS LLP",
+    "position_in_percent": 0.68
+  },
+  {
+    "isin": "SE0007100581",
+    "issuer_name": "ASSA ABLOY AB",
+    "position_date": "2019-01-21",
+    "position_holder": "MARSHALL WACE LLP",
+    "position_in_percent": 0.6
+  },
+  {
+    "isin": "SE0000936478",
+    "issuer_name": "INTRUM AB",
+    "position_date": "2019-01-18",
+    "position_holder": "MARSHALL WACE ASIA LIMITED",
+    "position_in_percent": 0.8
+  },
+  {
+    "isin": "SE0000241614",
+    "issuer_name": "SKISTAR AKTIEBOLAG",
+    "position_date": "2019-01-03",
+    "position_holder": "KEEL CAPITAL S.A., SICAV-SIF \u2013 FOGHORN X2",
+    "position_in_percent": 0.51
+  },
+  {
+    "isin": "SE0006887063",
+    "issuer_name": "HOIST FINANCE AB (PUBL)",
+    "position_date": "2018-11-05",
+    "position_holder": "BYBROOK CAPITAL LLP",
+    "position_in_percent": 0.64
+  },
+  {
+    "isin": "SE0003303627",
+    "issuer_name": "BYGGMAX GROUP AB",
+    "position_date": "2018-11-16",
+    "position_holder": "GSA CAPITAL PARTNERS LLP",
+    "position_in_percent": 0.89
+  },
+  {
+    "isin": "SE0000862997",
+    "issuer_name": "BILLERUDKORSN\u00c4S AKTIEBOLAG (PUBL)",
+    "position_date": "2019-01-29",
+    "position_holder": "MARSHALL WACE LLP",
+    "position_in_percent": 1.38
+  },
+  {
+    "isin": "SE0000862997",
+    "issuer_name": "BILLERUDKORSN\u00c4S AKTIEBOLAG (PUBL)",
+    "position_date": "2019-01-25",
+    "position_holder": "WORLDQUANT, LLC",
+    "position_in_percent": 0.58
+  },
+  {
+    "isin": "MT0000780107",
+    "issuer_name": "KAMBI GROUP PLC",
+    "position_date": "2019-01-28",
+    "position_holder": "MARSHALL WACE LLP",
+    "position_in_percent": 0.8
+  },
+  {
+    "isin": "SE0000806994",
+    "issuer_name": "JM AB",
+    "position_date": "2019-01-25",
+    "position_holder": "CAPITAL FUND MANAGEMENT SA",
+    "position_in_percent": 1.2
+  },
+  {
+    "isin": "SE0000108227",
+    "issuer_name": "AKTIEBOLAGET SKF",
+    "position_date": "2019-01-29",
+    "position_holder": "MARSHALL WACE LLP",
+    "position_in_percent": 0.81
+  },
+  {
+    "isin": "SE0002110064",
+    "issuer_name": "MEKONOMEN AKTIEBOLAG",
+    "position_date": "2019-01-25",
+    "position_holder": "PDT PARTNERS, LLC",
+    "position_in_percent": 0.65
+  },
+  {
+    "isin": "SE0011089259",
+    "issuer_name": "BETSSON AB",
+    "position_date": "2019-01-24",
+    "position_holder": "CITADEL EUROPE LLP",
+    "position_in_percent": 2.36
+  },
+  {
+    "isin": "SE0000862997",
+    "issuer_name": "BILLERUDKORSN\u00c4S AKTIEBOLAG (PUBL)",
+    "position_date": "2019-01-22",
+    "position_holder": "AHL PARTNERS LLP",
+    "position_in_percent": 0.79
+  },
+  {
+    "isin": "SE0000106205",
+    "issuer_name": "PEAB AB",
+    "position_date": "2019-01-17",
+    "position_holder": "RYE BAY CAPITAL LLP",
+    "position_in_percent": 0.5
+  },
+  {
+    "isin": "SE0000652216",
+    "issuer_name": "ICA GRUPPEN AKTIEBOLAG",
+    "position_date": "2019-01-17",
+    "position_holder": "ENGADINE PARTNERS LLP",
+    "position_in_percent": 0.69
+  },
+  {
+    "isin": "SE0000117970",
+    "issuer_name": "NCC AB",
+    "position_date": "12/21/2018",
+    "position_holder": "CAPITAL FUND MANAGEMENT SA",
+    "position_in_percent": 0.5
+  },
+  {
+    "isin": "SE0000106270",
+    "issuer_name": "H & M HENNES & MAURITZ AB",
+    "position_date": "12/17/2018",
+    "position_holder": "TIGER GLOBAL MANAGEMENT, LLC",
+    "position_in_percent": 0.5
+  },
+  {
+    "isin": "SE0000117970",
+    "issuer_name": "NCC AKTIEBOLAG",
+    "position_date": "2018-12-10",
+    "position_holder": "ARROWSTREET CAPITAL, LIMITED PARTNERSHIP",
+    "position_in_percent": 0.5
+  },
+  {
+    "isin": "SE0002683557",
+    "issuer_name": "LOOMIS AB",
+    "position_date": "2018-11-23",
+    "position_holder": "CARMIGNAC GESTION",
+    "position_in_percent": 0.51
+  },
+  {
+    "isin": "SE0007691613",
+    "issuer_name": "DOMETIC GROUP AB (PUBL)",
+    "position_date": "2018-12-03",
+    "position_holder": "ARROWSTREET CAPITAL, LIMITED PARTNERSHIP",
+    "position_in_percent": 0.7
+  },
+  {
+    "isin": "SE0000936478",
+    "issuer_name": "INTRUM JUSTITIA AB",
+    "position_date": "10/30/2017",
+    "position_holder": "CPMG, INC.",
+    "position_in_percent": 3.43
+  },
+  {
+    "isin": "SE0000202624",
+    "issuer_name": "GETINGE AB",
+    "position_date": "2019-01-23",
+    "position_holder": "AQR CAPITAL MANAGEMENT, LLC",
+    "position_in_percent": 1.39
+  },
+  {
+    "isin": "CH0256424794",
+    "issuer_name": "ORIFLAME HOLDING AG",
+    "position_date": "2019-01-18",
+    "position_holder": "BLACKROCK INVESTMENT MANAGEMENT (UK) LIMITED",
+    "position_in_percent": 3.36
+  },
+  {
+    "isin": "SE0000117970",
+    "issuer_name": "NCC AKTIEBOLAG",
+    "position_date": "12/18/2018",
+    "position_holder": "MARSHALL WACE LLP",
+    "position_in_percent": 1.7
+  },
+  {
+    "isin": "SE0010468116",
+    "issuer_name": "ARJO AB (PUBL)",
+    "position_date": "2018-11-23",
+    "position_holder": "GLG PARTNERS LP",
+    "position_in_percent": 1.09
+  },
+  {
+    "isin": "SE0000375115",
+    "issuer_name": "MYCRONIC AB (PUBL)",
+    "position_date": "2018-10-11",
+    "position_holder": "THE MANGROVE PARTNERS MASTER FUND, LTD.",
+    "position_in_percent": 1.55
+  },
+  {
+    "isin": "SE0002367797",
+    "issuer_name": "HEXAGON AKTIEBOLAG",
+    "position_date": "9/18/2018",
+    "position_holder": "WORLDQUANT, LLC",
+    "position_in_percent": 0.58
+  },
+  {
+    "isin": "GB00B635TG28",
+    "issuer_name": "ENQUEST PLC",
+    "position_date": "6/5/2017",
+    "position_holder": "GSA CAPITAL PARTNERS LLP",
+    "position_in_percent": 0.7
+  },
+  {
+    "isin": "SE0006993770",
+    "issuer_name": "AXFOOD AKTIEBOLAG",
+    "position_date": "3/21/2017",
+    "position_holder": "PELHAM LONG SHORT MASTER FUND LTD",
+    "position_in_percent": 1.84
+  },
+  {
+    "isin": "SE0000652216",
+    "issuer_name": "ICA GRUPPEN AKTIEBOLAG",
+    "position_date": "3/20/2017",
+    "position_holder": "PELHAM LONG SHORT MASTER FUND LTD",
+    "position_in_percent": 1.33
+  },
+  {
+    "isin": "SE0008091904",
+    "issuer_name": "LEOVEGAS AB (PUBL)",
+    "position_date": "2019-01-28",
+    "position_holder": "JPMORGAN ASSET MANAGEMENT (UK) LTD",
+    "position_in_percent": 0.91
+  },
+  {
+    "isin": "SE0000112724",
+    "issuer_name": "SVENSKA CELLULOSA AKTIEBOLAGET SCA",
+    "position_date": "2019-01-24",
+    "position_holder": "AQR CAPITAL MANAGEMENT, LLC",
+    "position_in_percent": 0.71
+  },
+  {
+    "isin": "SE0000163628",
+    "issuer_name": "ELEKTA AB (PUBL)",
+    "position_date": "2019-01-23",
+    "position_holder": "WELLINGTON MANAGEMENT COMPANY, LLP",
+    "position_in_percent": 0.86
+  },
+  {
+    "isin": "SE0002148817",
+    "issuer_name": "HANSA BIOPHARMA AB",
+    "position_date": "2019-01-16",
+    "position_holder": "MARSHALL WACE LLP",
+    "position_in_percent": 0.69
+  },
+  {
+    "isin": "SE0005190238",
+    "issuer_name": "TELE2 AB",
+    "position_date": "2019-01-16",
+    "position_holder": "B&G MASTER FUND PLC",
+    "position_in_percent": 0.59
+  },
+  {
+    "isin": "SE0000584948",
+    "issuer_name": "CLAS OHLSON AKTIEBOLAG",
+    "position_date": "12/21/2018",
+    "position_holder": "WORLDQUANT, LLC",
+    "position_in_percent": 0.72
+  },
+  {
+    "isin": "SE0000862997",
+    "issuer_name": "BILLERUDKORSN\u00c4S AKTIEBOLAG (PUBL)",
+    "position_date": "2019-01-28",
+    "position_holder": "BLACKROCK INSTITUTIONAL TRUST COMPANY, NATIONAL ASSOCIATION",
+    "position_in_percent": 0.69
+  },
+  {
+    "isin": "SE0011089200",
+    "issuer_name": "NETENT AB (PUBL)",
+    "position_date": "2019-01-18",
+    "position_holder": "TT INTERNATIONAL",
+    "position_in_percent": 0.53
+  },
+  {
+    "isin": "SE0009888738",
+    "issuer_name": "BOOZT AB",
+    "position_date": "2019-01-29",
+    "position_holder": "MARSHALL WACE LLP",
+    "position_in_percent": 0.68
+  },
+  {
+    "isin": "SE0007691613",
+    "issuer_name": "DOMETIC GROUP AB (PUBL)",
+    "position_date": "2019-01-21",
+    "position_holder": "MARSHALL WACE LLP",
+    "position_in_percent": 0.98
+  },
+  {
+    "isin": "SE0003303627",
+    "issuer_name": "BYGGMAX GROUP AB",
+    "position_date": "2019-01-11",
+    "position_holder": "KEEL CAPITAL S.A., SICAV-SIF \u2013 FOGHORN X2",
+    "position_in_percent": 0.82
+  },
+  {
+    "isin": "SE0000170110",
+    "issuer_name": "AVANZA BANK HOLDING AB",
+    "position_date": "2018-11-07",
+    "position_holder": "BLACKROCK INVESTMENT MANAGEMENT (UK) LIMITED",
+    "position_in_percent": 1.0
+  },
+  {
+    "isin": "SE0000117970",
+    "issuer_name": "NCC AKTIEBOLAG",
+    "position_date": "8/1/2018",
+    "position_holder": "JPMORGAN ASSET MANAGEMENT (UK) LTD",
+    "position_in_percent": 0.83
+  },
+  {
+    "isin": "SE0000117970",
+    "issuer_name": "NCC AKTIEBOLAG",
+    "position_date": "2019-01-18",
+    "position_holder": "BLACKROCK INVESTMENT MANAGEMENT, LLC",
+    "position_in_percent": 0.71
+  },
+  {
+    "isin": "SE0010948588",
+    "issuer_name": "BYGGHEMMA GROUP FIRST AB",
+    "position_date": "2019-01-15",
+    "position_holder": "OTUS CAPITAL MANAGEMENT",
+    "position_in_percent": 1.3
+  },
+  {
+    "isin": "SE0007100599",
+    "issuer_name": "SVENSKA HANDELSBANKEN AB",
+    "position_date": "2018-12-27",
+    "position_holder": "AQR CAPITAL MANAGEMENT, LLC",
+    "position_in_percent": 0.59
+  },
+  {
+    "isin": "SE0000806994",
+    "issuer_name": "JM AB",
+    "position_date": "12/18/2018",
+    "position_holder": "ARROWSTREET CAPITAL, L.P. ",
+    "position_in_percent": 1.02
+  },
+  {
+    "isin": "SE0000112385",
+    "issuer_name": "SAAB AKTIEBOLAG",
+    "position_date": "12/19/2018",
+    "position_holder": "CAPITAL FUND MANAGEMENT SA",
+    "position_in_percent": 0.57
+  },
+  {
+    "isin": "SE0009806607",
+    "issuer_name": "MUNTERS GROUP AB",
+    "position_date": "2018-11-01",
+    "position_holder": "LUCERNE CAPITAL MANAGEMENT, L.P.",
+    "position_in_percent": 0.91
+  },
+  {
+    "isin": "SE0000652216",
+    "issuer_name": "ICA GRUPPEN AKTIEBOLAG",
+    "position_date": "5/16/2018",
+    "position_holder": "HENGISTBURY INVESTMENT PARTNERS LLP",
+    "position_in_percent": 1.03
+  }
+]
