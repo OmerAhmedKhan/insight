@@ -55,6 +55,10 @@ var trades = d3.select("#graph")
   .append("g")
   .attr("id", "trades")
 
+var shorts = d3.select("#shortGraph")
+  .append("g")
+  .attr("id", "shorts")
+
 //define X axis scale
 var xScale = d3.scaleBand()
   .range([margin.left, graphWidth])
@@ -161,7 +165,7 @@ function chart(data) {
       accumulatedCurpos[month-1].positions.push(d);
     })
 
-    accumulatedCurpos = accumulatedCurpos.filter(function (d) { return d.positions.length != 0})
+    // accumulatedCurpos = accumulatedCurpos.filter(function (d) { return d.positions.length != 0})
 
     //set scaling domains
     xScale.domain(accumulatedTrades.map(function (d, i) {
@@ -176,14 +180,12 @@ function chart(data) {
       .selectAll("rect")
       .data(accumulatedTrades)
 
-    var shorts = d3.select("#shortGraph")
-      .append("g")
-      .attr("id", "shorts")
+    var circles = d3.select("#shorts")
       .selectAll("circle")
       .data(accumulatedCurpos)
 
     bars.exit().remove()
-    shorts.exit().remove()
+    circles.exit().remove()
 
     bars.enter().append("rect")
       .attr("class", function(d) {
@@ -208,7 +210,7 @@ function chart(data) {
         return (yScale(0) - yScale(+ Math.abs(d.value)))
       })
 
-    shorts.enter().append("circle")
+    circles.enter().append("circle")
       .attr("class", "short")
       .attr("cx", function(d, i){
         return (xScale(d.month) + (xScale.bandwidth() / 2))
@@ -216,7 +218,6 @@ function chart(data) {
       .attr("cy", function() {
         return 0
       })
-      .attr("r", xScale.bandwidth() / 3)
       .attr("opacity", 1)
       .on("mouseover", function(d) {
         var tip = ""
@@ -239,6 +240,12 @@ function chart(data) {
           tooltip.transition()
               .duration(500)
               .style("opacity", 0);
+      })
+      .merge(circles)
+      .transition()
+      .duration(750)
+      .attr("r", function(d){
+        return xScale.bandwidth() / 3 * (d.positions.length == 0? 0 : 1)
       });
 
       d3.select(".y-axis")
@@ -259,7 +266,7 @@ function chart(data) {
 //load data and draw a graph
 function update(i, s){
   // ugly and slow clear variant, should preferrably be reworked to use merging with pretty animations
-  d3.selectAll(".short").remove()
+  // d3.selectAll(".short").remove()
 
   Promise.all([
     d3.json(i),
