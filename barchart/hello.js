@@ -14,9 +14,10 @@ function convertInsightDate(insightDate) {
 
 // Year is currently a bit unecessary since we only seem to have 2018 insync data
 var options = d3.select("#year").selectAll("option")
-		.data([2018, 2017, 2016])
+  .data([2019, 2018, 2017, 2016])
 	.enter().append("option")
   .text(d => d)
+  .property("selected", function(d){ return d === 2018; })
 
 var width = 800,
     height = 300;
@@ -137,17 +138,30 @@ function chart(data) {
     }
 
     trades.forEach(function(d) {
-      d.month = convertInsightDate(d.transaction_date).getMonth();
-      d.year = convertInsightDate(d.transaction_date).getFullYear();
+      var date = convertInsightDate(d.transaction_date);
+      d.month = date.getMonth();
+      d.year = date.getFullYear();
     });
 
     var year = d3.select("#year").property("value")
-    console.log(year)
     trades = trades.filter(function(d){return d.year == year})
+    curpos = curpos.filter(function(d){return d.position_date.split("-")[0] == year})
 
     trades.forEach(function(d) {
       accumulatedTrades[d.month].value += d.trade == "Avyttring"? -d.volume : d.volume;
     })
+
+    var accumulatedCurpos = [];
+    for (var i = 0; i < 12; i++){
+      accumulatedCurpos.push({"month":i, "positions":[]});
+    }
+
+    curpos.forEach(function (d) {
+      var month = parseInt(d.position_date.split("-")[1]);
+      accumulatedCurpos[month-1].positions.push(d);
+    })
+
+    accumulatedCurpos = accumulatedCurpos.filter(function (d) { return d.positions.length != 0})
 
     //set scaling domains
     xScale.domain(accumulatedTrades.map(function (d, i) {
@@ -166,7 +180,7 @@ function chart(data) {
       .append("g")
       .attr("id", "shorts")
       .selectAll("circle")
-      .data(curpos)
+      .data(accumulatedCurpos)
 
     bars.exit().remove()
     shorts.exit().remove()
@@ -197,7 +211,7 @@ function chart(data) {
     shorts.enter().append("circle")
       .attr("class", "short")
       .attr("cx", function(d, i){
-        return (xScale(i) + (xScale.bandwidth() / 2))
+        return (xScale(d.month) + (xScale.bandwidth() / 2))
       })
       .attr("cy", function() {
         return 0
@@ -205,12 +219,16 @@ function chart(data) {
       .attr("r", xScale.bandwidth() / 3)
       .attr("opacity", 1)
       .on("mouseover", function(d) {
-        var value = d.position_holder + ": " + d.position_in_percent + "%"
-        var date = "Aquired: " + d.position_date
-        var numLines = 2
-        tooltip.html(value + "<br/>" + date)
-          .style("width", (value.length * 8) + "px")
-          .style("height", (numLines * 14) + "px")
+        var tip = ""
+        d.positions.forEach(e => {
+          tip += e.position_holder + ": " + e.position_in_percent + "% <br>"
+          tip += "Aquired: " + e.position_date + "<br><br>"
+        });
+
+        tooltip.html(tip)
+          .style("width", "auto")
+          .style("height", "auto")
+          .style("padding", "10px")
           .style("left", (d3.event.pageX) + "px")
           .style("top", (d3.event.pageY - 28) + "px");
         tooltip.transition()
