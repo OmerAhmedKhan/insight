@@ -167,7 +167,14 @@ function update(trades, curpos) {
     }
 
     if (trades.length > 0) {
-      var companyName = trades[0].Issuer.split("\(")[0];
+      var companyName = "";
+      if (trades[0].issuer) {
+        companyName = trades[0].issuer.split("\(")[0];
+      }
+      if (trades[0].Issuer)
+      {
+        companyName = trades[0].Issuer.split("\(")[0]
+      }
       d3.select("#heading")
         .text("Insight: " + companyName + " (" + isin + ")")
       d3.select("#title")
