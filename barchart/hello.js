@@ -1,12 +1,8 @@
-// var isin = "SE0000202624";
 var isin = getQueryVariable("isin");
 // For development, just use an arbitrary isin if none has been specified
 if (isin == false) {
   isin = "SE0000202624";
 }
-
-d3.select("#heading")
-  .text("Insight: " + isin)
 
 var transitionTime = 300;
 
@@ -34,7 +30,7 @@ var width = 800,
     height = 300;
 var subfield = height / 8;
 
-var margin = {top: 20, right: 20, bottom: 100, left: 30},
+var margin = {top: 20, right: 20, bottom: 60, left: 30},
     graphWidth = width - margin.left - margin.right,
     graphHeight = height - margin.top - margin.bottom;
 
@@ -65,6 +61,10 @@ var tooltip = d3.select("body").append("div")
 var trades = d3.select("#graph")
   .append("g")
   .attr("id", "trades")
+
+var tradesNeg = d3.select("#graph")
+  .append("g")
+  .attr("id", "tradesNeg")
 
 var shorts = d3.select("#shortGraph")
   .append("g")
@@ -103,18 +103,18 @@ var yAxis = d3.select("#graph").append("g")
   .attr("class", "y-axis")
 
 //axis labels
-d3.select("#canvas1").append("text")
-.attr("id", "x-axis-title")
-.attr("class", "axis-title")
-.attr("text-anchor", "middle")
-.attr("transform", "translate(" + (width * (7/8)) + "," + (height - 10) +")")
-.text("X AXIS LABEL")
+// d3.select("#canvas1").append("text")
+// .attr("id", "x-axis-title")
+// .attr("class", "axis-title")
+// .attr("text-anchor", "middle")
+// .attr("transform", "translate(" + (width * (7/8)) + "," + (height - 10) +")")
+// .text("X AXIS LABEL")
 d3.select("#canvas1").append("text")
 .attr("id", "y-axis-title")
 .attr("class", "axis-title")
 .attr("text-anchor", "middle")
 .attr("transform", "translate(" + (margin.left / 2) + "," + (graphHeight/2 + margin.top) +"), rotate(-90)")
-.text("Y AXIS LABEL")
+.text("Total volume")
 d3.select("#canvas2").append("text")
 .attr("id", "short-axis-title")
 .attr("class", "axis-title")
@@ -160,8 +160,18 @@ Promise.all([
 function update(trades, curpos) {
     // Create a new array with the accumulated data
     var accumulatedTrades = [];
+    var accumulatedTradesNeg = [];
     for (var i = 0; i < 12; i++){
       accumulatedTrades.push({"month":months[i], "value":0});
+      accumulatedTradesNeg.push({"month":months[i], "value":0});
+    }
+
+    if (trades.length > 0) {
+      var companyName = trades[0].issuer.split("\(")[0];
+      d3.select("#heading")
+        .text("Insight: " + companyName + " (" + isin + ")")
+      d3.select("#title")
+      .text("Insight: " + companyName + " (" + isin + ")")
     }
 
     trades.forEach(function(d) {
@@ -175,7 +185,17 @@ function update(trades, curpos) {
     curpos = curpos.filter(function(d){return d.position_date.split("-")[0] == year})
 
     trades.forEach(function(d) {
-      accumulatedTrades[d.month].value += d.trade == "Avyttring"? -d.volume : d.volume;
+      var value = d.volume;
+      if (d.trade == "Avyttring") {
+        value = -value;
+      }
+      if (value >= 0) {
+        accumulatedTrades[d.month].value += value;
+      }
+      else
+      {
+        accumulatedTradesNeg[d.month].value += value; // TODO change
+      }
     })
 
     var accumulatedCurpos = [];
@@ -194,7 +214,7 @@ function update(trades, curpos) {
     xScale.domain(accumulatedTrades.map(function (d, i) {
       return i;
     }));
-    yScale.domain(d3.extent(accumulatedTrades, function(d) {
+    yScale.domain(d3.extent(accumulatedTrades.concat(accumulatedTradesNeg), function(d) {
       return d.value
     })).nice();
 
@@ -202,12 +222,16 @@ function update(trades, curpos) {
     var bars = d3.select("#trades")
       .selectAll("rect")
       .data(accumulatedTrades)
+    var barsNeg = d3.select("#tradesNeg")
+      .selectAll("rect")
+      .data(accumulatedTradesNeg)
 
     var circles = d3.select("#shorts")
       .selectAll("circle")
       .data(accumulatedCurpos)
 
     bars.exit().remove()
+    barsNeg.exit().remove()
     circles.exit().remove()
 
     bars.enter().append("rect")
@@ -217,11 +241,7 @@ function update(trades, curpos) {
       .attr("width", xScale.bandwidth())
       .merge(bars)
       .transition().duration(transitionTime)
-      .attr("class", function(d) {
-        var type;
-        type = d.value < 0? "negative" : "positive";
-        return "bar bar-" + type;
-      })
+      .attr("class", "bar bar-positive")
       .attr("y", function(d){
         if (d.value < 0) {
           return yScale(0)
@@ -229,6 +249,19 @@ function update(trades, curpos) {
           return (yScale(+d.value))
         }
       })
+      .attr("height", function(d) {
+        return (yScale(0) - yScale(+ Math.abs(d.value)))
+      })
+
+    barsNeg.enter().append("rect")
+      .attr("x", function(d, i) {
+        return xScale(i);
+      })
+      .attr("width", xScale.bandwidth())
+      .merge(barsNeg)
+      .transition().duration(transitionTime)
+      .attr("class", "bar bar-negative")
+      .attr("y", yScale(0))
       .attr("height", function(d) {
         return (yScale(0) - yScale(+ Math.abs(d.value)))
       })

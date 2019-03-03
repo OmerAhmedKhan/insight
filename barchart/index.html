@@ -35,6 +35,11 @@
 			visibility: visible;
 		}
 
+		h1 {
+			font-size: 20px;
+			font-weight: normal;
+		}
+
 		.axis text {
 		  font: 10px sans-serif;
 		}
@@ -62,21 +67,23 @@
 
 	<head>
 		<meta charset="utf-8"/>
-		<title>Hello World</title>
+		<title id="title">Insight: </title>
 	</head>
 
 	<body>
 		<div>
-			<h1 id="heading">Insight: ISIN</h1>
+			<h1 id="heading">Insight: </h1>
 		</div>
-		<div class="d3">
-			<div class="tradeInfo" id="tradeDiv"> </div>
-			<div class="shortInfo" id="shortDiv"> </div>
-
 		Choose year:
 		<select id="year"></select>
 		<!-- <input type="checkbox" id="logscale">
 		Use logarithmic scale -->
+		<br>
+		<br>
+		<div class="d3">
+			<div class="tradeInfo" id="tradeDiv"> </div>
+			<div class="shortInfo" id="shortDiv"> </div>
+
 		<script src="https://d3js.org/d3.v5.min.js"></script>
 		<script src="../getvariable.js"></script>
 		<script src="hello.js"></script>
