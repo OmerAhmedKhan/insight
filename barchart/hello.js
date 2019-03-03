@@ -8,6 +8,8 @@ if (isin == false) {
 d3.select("#heading")
   .text("Insight: " + isin)
 
+var transitionTime = 300;
+
 var months = ["January", "February", "Mars", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 function convertInsightDate(insightDate) {
@@ -209,17 +211,17 @@ function update(trades, curpos) {
     circles.exit().remove()
 
     bars.enter().append("rect")
-      .attr("class", function(d) {
-        var type;
-        type = d.value < 0? "negative" : "positive";
-        return "bar bar-" + type;
-      })
       .attr("x", function(d, i) {
         return xScale(i);
       })
       .attr("width", xScale.bandwidth())
       .merge(bars)
-      .transition().duration(750)
+      .transition().duration(transitionTime)
+      .attr("class", function(d) {
+        var type;
+        type = d.value < 0? "negative" : "positive";
+        return "bar bar-" + type;
+      })
       .attr("y", function(d){
         if (d.value < 0) {
           return yScale(0)
@@ -264,20 +266,20 @@ function update(trades, curpos) {
       })
       .merge(circles)
       .transition()
-      .duration(750)
+      .duration(transitionTime)
       .attr("r", function(d){
         return xScale.bandwidth() / 3 * (d.positions.length == 0? 0 : 1)
       });
 
       d3.select(".y-axis")
         .transition()
-        .duration(750)
+        .duration(transitionTime)
         .attr("transform", "translate(" + xScale(0) + "," + 0 + ")")
         .call(yAxisCall)
 
       d3.select(".x-axis")
         .transition()
-        .duration(750)
+        .duration(transitionTime)
         .attr("transform", "translate(" + 0 + "," + yScale(0) + ")")
 }
 
