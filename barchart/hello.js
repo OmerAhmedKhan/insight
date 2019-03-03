@@ -15,12 +15,18 @@ function convertInsightDate(insightDate) {
   return new Date(parseInt(splot[2]), parseInt(splot[0])-1, parseInt(splot[1]));
 }
 
+var years = []
+for (var i = 2019; i >= 1991; i--)
+{
+  years.push(i)
+}
+
 // Year is currently a bit unecessary since we only seem to have 2018 insync data
 var options = d3.select("#year").selectAll("option")
-  .data([2019, 2018, 2017, 2016])
+  .data(years)
 	.enter().append("option")
   .text(d => d)
-  .property("selected", function(d){ return d === 2018; }) // Select 2018 by default (useful for dev since we only have 2018 insync)
+  // .property("selected", function(d){ return d === 2018; }) // Select 2018 by default (useful for dev since we only have 2018 insync)
 
 var width = 800,
     height = 300;
@@ -116,11 +122,13 @@ d3.select("#canvas2").append("text")
 
 var insightLocal = "insightGetinge.json"
 var shortposLocal = "curposGetinge.json"
-var insightURL = "http://ivis.southeastasia.cloudapp.azure.com:5000/insync2018/"
+var insightURL = "http://ivis.southeastasia.cloudapp.azure.com:5000/insync1991/"
+var insightURL2018 = "http://ivis.southeastasia.cloudapp.azure.com:5000/insync2018/"
 var shortposURL = "http://ivis.southeastasia.cloudapp.azure.com:5000/currentPosition/"
 
 limit = 500
 insightURL += ("?limit=" + limit) + ("&filter={\"isin\":\"" + isin + "\"}")
+insightURL2018 += ("?limit=" + limit) + ("&filter={\"isin\":\"" + isin + "\"}")
 shortposURL += ("?limit=" + limit) + ("&filter={\"isin\":\"" + isin + "\"}")
 
 var useLocalData = false
@@ -131,13 +139,23 @@ if (useLocalData) {
   shortposSource = shortposLocal
 }
 
-//draw initial/default graph
-update(insightSource, shortposSource)
+// This is probably not a vey d3 way to do things, but it seems to work well enough
+var trades = []
+var curpos = []
 
-function chart(data) {
-    var trades = data[0]
-    var curpos = data[1]
+Promise.all([
+  d3.json(insightURL),
+  d3.json(shortposURL),
+  d3.json(insightURL2018)
+]).then(function(data)
+{
+  trades = data[0]
+  curpos = data[1]
+  trades = trades.concat(data[2]);
+  update(trades, curpos)
+});
 
+function update(trades, curpos) {
     // Create a new array with the accumulated data
     var accumulatedTrades = [];
     for (var i = 0; i < 12; i++){
@@ -257,31 +275,17 @@ function chart(data) {
         .attr("transform", "translate(" + xScale(0) + "," + 0 + ")")
         .call(yAxisCall)
 
-      xScale.domain(months);
-
       d3.select(".x-axis")
         .transition()
         .duration(750)
         .attr("transform", "translate(" + 0 + "," + yScale(0) + ")")
-
-}
-
-//load data and draw a graph
-function update(i, s){
-  // ugly and slow clear variant, should preferrably be reworked to use merging with pretty animations
-  // d3.selectAll(".short").remove()
-
-  Promise.all([
-    d3.json(i),
-    d3.json(s)
-  ]).then(d=>chart(d));
 }
 
 d3.select("#logscale").on("click", function() {
-  update(insightSource, shortposSource);
+  update(trades, curpos);
 });
 var select = d3.select("#year")
     .style("border-radius", "5px")
     .on("change", function() {
-      update(insightSource, shortposSource);
+      update(trades, curpos);
   });
