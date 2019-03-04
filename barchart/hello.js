@@ -3,6 +3,7 @@ var isin = getQueryVariable("isin");
 if (isin == false) {
   isin = "SE0000202624";
 }
+var year = parseInt(getQueryVariable("year"));
 
 var transitionTime = 300;
 
@@ -24,7 +25,7 @@ var options = d3.select("#year").selectAll("option")
   .data(years)
 	.enter().append("option")
   .text(d => d)
-  // .property("selected", function(d){ return d === 2018; }) // Select 2018 by default (useful for dev since we only have 2018 insync)
+  .property("selected", function(d){ return d === year; }) // Select 2018 by default (useful for dev since we only have 2018 insync)
 
 var width = 800,
     height = 300;
@@ -291,12 +292,14 @@ function update(trades, curpos) {
       })
       .attr("opacity", 1)
       .on("mouseover", function(d) {
+        if (d.positions.length == 0) {
+          return;
+        }
         var tip = ""
         d.positions.forEach(e => {
           tip += e.position_holder + ": " + e.position_in_percent + "% <br>"
           tip += "Aquired: " + e.position_date + "<br><br>"
         });
-
         tooltip.html(tip)
           .style("width", "auto")
           .style("height", "auto")
@@ -316,13 +319,16 @@ function update(trades, curpos) {
       .transition()
       .duration(transitionTime)
       .attr("r", function(d){
-        return xScale.bandwidth() / 3 * (d.positions.length == 0? 0 : 1)
-      });
+        return xScale.bandwidth() / 3 * (d.positions.length == 0? 0.1 : 1)
+      })
+      .attr("fill", function (d) {
+        return d.positions.length == 0? "#555555" : "#ff7000"
+      })
 
       d3.select(".y-axis")
         .transition()
         .duration(transitionTime)
-        .attr("transform", "translate(" + xScale(0) + "," + 0 + ")")
+        .attr("transform", "translate(" + xScale(0)*0.8 + "," + 0 + ")")
         .call(yAxisCall)
 
       d3.select(".x-axis")
