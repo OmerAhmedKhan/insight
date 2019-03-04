@@ -409,13 +409,7 @@
                   .attr("dy", ".75em")
 
                   t.append("tspan")
-                  .text(function(d) { if(d._children[0]._children == undefined){
-                        return d.key;
-                        }
-                        else{
-                        return d.key.slice(0, 6);
-                        }
-                        });
+                  .text(function(d) { var word = d.key.slice(0,6); return word; });
                   t.append("tspan")
                   .attr("dy", "1.0em")
                   .text(function(d) { return formatNumber(d.value); });

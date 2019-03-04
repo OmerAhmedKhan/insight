@@ -140,9 +140,9 @@ var insightLocal2018 = "insight2018.json"
 var shortposLocal = "curpos.json"
 var insightURL = "http://ivis.southeastasia.cloudapp.azure.com:5000/insync1991/"
 var insightURL2018 = "http://ivis.southeastasia.cloudapp.azure.com:5000/insync2018/"
-var shortposURL = "http://ivis.southeastasia.cloudapp.azure.com:5000/currentPosition/"
+var shortposURL = "http://ivis.southeastasia.cloudapp.azure.com:5000/histPosition/"
 
-limit = 1000
+limit = 10000
 insightURL += ("?limit=" + limit) + ("&filter={\"isin\":\"" + isin + "\"}")
 insightURL2018 += ("?limit=" + limit) + ("&filter={\"isin\":\"" + isin + "\"}")
 shortposURL += ("?limit=" + limit) + ("&filter={\"isin\":\"" + isin + "\"}")
