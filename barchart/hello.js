@@ -1,3 +1,21 @@
+// var timeSvg = d3.select("#timeDiv").append("svg")
+//   .attr("width", 100)
+//   .attr("height", 200)
+//   .attr("class", "canvas")
+
+var years = []
+for (var i = 2019; i >= 1991; i--)
+{
+  years.push(i)
+}
+
+// years.forEach((e, i) => {
+//   timeSvg.append("text")
+//     .text(e)
+//     .attr("y", i*20)
+
+// });
+
 var isin = getQueryVariable("isin");
 // For development, just use an arbitrary isin if none has been specified
 if (isin == false) {
@@ -14,12 +32,6 @@ function convertInsightDate(insightDate) {
   return new Date(parseInt(splot[2]), parseInt(splot[0])-1, parseInt(splot[1]));
 }
 
-var years = []
-for (var i = 2019; i >= 1991; i--)
-{
-  years.push(i)
-}
-
 // Year is currently a bit unecessary since we only seem to have 2018 insync data
 var options = d3.select("#year").selectAll("option")
   .data(years)
@@ -31,7 +43,7 @@ var width = 800,
     height = 300;
 var subfield = height / 8;
 
-var margin = {top: 20, right: 20, bottom: 60, left: 30},
+var margin = {top: 20, right: 20, bottom: 60, left: 50},
     graphWidth = width - margin.left - margin.right,
     graphHeight = height - margin.top - margin.bottom;
 
