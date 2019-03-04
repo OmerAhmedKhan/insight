@@ -551,7 +551,7 @@
                 if (!err) {
                 //if(formatmon(res.position_date)=="2019-01-28"){
                 //console.log(res.position_date);
-                var data = d3.nest().key(function(d) { return d.issuer_name; }).key(function(d) { return d.position_holder; }).entries(res);
+                var data = d3.nest().key(function(d) { return d.issuer_name; }).key(function(d) { return d.isin; }).entries(res);
                 var ph = d3.nest().key(function(d){return d.issuer_name;}).key(function(d){return d.isin; }).entries(res);
                 main({title: "ShortsellingOverview"}, {key: "Short Stocks", values: data});
 
