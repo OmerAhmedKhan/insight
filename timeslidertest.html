@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+        <script src="https://d3js.org/d3.v3.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
+        <style>
+            body {
+                font-family:"avenir next", Arial, sans-serif;
+                font-size: 12px;
+                color: #696969;
+            }
+        
+        .ticks {
+            font-size: 10px;
+        }
+        
+        .track,
+        .track-inset,
+        .track-overlay {
+            stroke-linecap: round;
+        }
+        
+        .track {
+            stroke: #000;
+            stroke-opacity: 0.3;
+            stroke-width: 10px;
+        }
+        
+        .track-inset {
+            stroke: #ddd;
+            stroke-width: 8px;
+        }
+        
+        .track-overlay {
+            pointer-events: stroke;
+            stroke-width: 50px;
+            stroke: transparent;
+            cursor: crosshair;
+        }
+        
+        .handle {
+            fill: #fff;
+            stroke: #000;
+            stroke-opacity: 0.5;
+            stroke-width: 1.25px;
+        }
+        
+        #chart {
+            background: #fff;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+        
+        .title {
+            font-weight: bold;
+            font-size: 24px;
+            text-align: center;
+            margin-top: 6px;
+            margin-bottom: 6px;
+        }
+        text {
+            pointer-events: none;
+        }
+        
+        .grandparent text {
+            font-weight: bold;
+        }
+        
+        rect {
+            fill: none;
+            stroke: #fff;
+        }
+        
+        rect.parent,
+        .grandparent rect {
+            stroke-width: 2px;
+        }
+        
+        rect.parent {
+            cursor: pointer;
+        }
+        
+        rect.parent:hover {
+            opacity: 0.7;
+        }
+        
+        .grandparent rect {
+            fill: #9e9ac8;
+        }
+        
+        .grandparent:hover rect {
+            fill: #9e9ac8;
+        }
+        
+        .children rect.parent,
+        .grandparent rect {
+            cursor: pointer;
+        }
+        
+        .children rect.parent {
+            fill: #bbb;
+            fill-opacity: .5;
+        }
+        
+        .children:hover rect.child {
+            fill: #bbb;
+        }
+        
+        .ctext {
+            font-size: 11px;
+        }
+        .toolTip {
+            position: absolute;
+            display: none;
+            width: auto;
+            height: auto;
+            background: none repeat scroll 0 0 white;
+            border: 0 none;
+            border-radius: 8px 8px 8px 8px;
+            box-shadow: -3px 3px 15px #888888;
+            color: black;
+            font: 12px sans-serif;
+            padding: 5px;
+            text-align: center;
+        }
+        </style>
+</head>
+
+<body>
+    
+    <div id="chart"></div>
+    <script>
+        /*var formatDateIntoYear = d3.time.format("%Y");
+        var formatDate = d3.time.format("%b %Y");
+        
+        var startDate = new Date("2019-01-31"),
+        endDate = new Date("2017-03-20");
+        
+        var margin = {top:0, right:50, bottom:0, left:50},
+        width = 960 -margin.left - margin.right,
+        height = 100 - margin.top - margin.bottom;
+        
+        var svg = d3.select("#slider")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height);
+        
+        var x = d3.time.scale()
+        .domain([startDate, endDate])
+        .range([0, width])
+        .clamp(true);
+        
+        var slider = svg.append("g")
+        .attr("class", "slider")
+        .attr("transform", "translate(" + margin.left + "," + height / 2 + ")");
+        
+        var tool = d3.select("body").append("div").attr("class", "toolTip");
+        
+        slider.append("line")
+        .attr("class", "track")
+        .attr("x1", x.range()[0])
+        .attr("x2", x.range()[1])
+        .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+        .attr("class", "track-inset")
+        .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+        .attr("class", "track-overlay")
+        .call(d3.behavior.drag()
+              .on("drag.interrupt", function() { slider.interrupt(); })
+              .on("drag", function() { hue(x.invert(d3.event.x)); }));
+              
+        slider.insert("g", ".track-overlay")
+              .attr("class", "ticks")
+              .attr("transform", "translate(0," + 18 + ")")
+              .selectAll("text")
+              .data(x.ticks(10))
+              .enter()
+              .append("text")
+              .attr("x", x)
+              .attr("y", 10)
+              .attr("text-anchor", "middle")
+              .text(function(d) { return formatDateIntoYear(d); });
+              
+        var label = slider.append("text")
+              .attr("class", "label")
+              .attr("text-anchor", "middle")
+              .text(formatDate(startDate))
+              .attr("transform", "translate(0," + (-25) + ")")
+              
+        var handle = slider.insert("circle", ".track-overlay")
+              .attr("class", "handle")
+              .attr("r", 9);
+              
+        function hue(h) {
+                  handle.attr("cx", x(h));
+                  label
+                  .attr("x", x(h))
+                  .text(formatDate(h));
+                  svg.style("background-color", d3.hsl(h/1000000000, 0.8, 0.8));
+            }*/
+    </script>
+    
+    
+    
+    <script>
+        
+        
+        window.addEventListener('message', function(e) {
+                                var opts = e.data.opts,
+                                data = e.data.data;
+                                
+                                return main(opts, data);
+                                });
+                                
+                                var defaults = {
+                                    margin: {top: 24, right: 0, bottom: 0, left: 0},
+                                    rootname: "TOP",
+                                    format: ",d",
+                                    title: "",
+                                    width: 960,
+                                    height: 500
+                                };
+    var tool = d3.select("body").append("div").attr("class", "toolTip");
+    
+    function main(o, data) {
+        var root,
+        opts = $.extend(true, {}, defaults, o),
+        formatNumber = d3.format(opts.format),
+        rname = opts.rootname,
+        margin = opts.margin,
+        theight = 36 + 16;
+        
+        $('#chart').width(opts.width).height(opts.height);
+        var width = opts.width - margin.left - margin.right,
+        height = opts.height - margin.top - margin.bottom - theight,
+        transitioning;
+        
+        
+        var pur=["#3f007d","#54278f","#6a51a3","#807dba","#9e9ac8","#bcbddc", "#dadaeb","#efedf5","#fcfbfd"];
+        var color = d3.scale.ordinal().range(pur);
+        
+        var x = d3.scale.linear()
+        .domain([0, width])
+        .range([0, width]);
+        
+        var y = d3.scale.linear()
+        .domain([0, height])
+        .range([0, height]);
+        
+        var treemap = d3.layout.treemap()
+        .children(function(d, depth) { return depth ? null : d._children; })
+        .sort(function(a, b) { return a.value - b.value; })
+        .ratio(height / width * 0.5 * (1 + Math.sqrt(5)))
+        .round(false);
+        
+        var svg = d3.select("#chart").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.bottom + margin.top)
+        .style("margin-left", -margin.left + "px")
+        .style("margin.right", -margin.right + "px")
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        .style("shape-rendering", "crispEdges");
+        
+        var grandparent = svg.append("g")
+        .attr("class", "grandparent");
+        
+        grandparent.append("rect")
+        .attr("y", -margin.top)
+        .attr("width", width)
+        .attr("height", margin.top);
+        
+        grandparent.append("text")
+        .attr("x", 6)
+        .attr("y", 6 - margin.top)
+        .attr("dy", ".75em");
+        
+        if (opts.title) {
+            $("#chart").prepend("<p class='title'>" + opts.title + "</p>");
+        }
+        if (data instanceof Array) {
+            root = { key: rname, values: data };
+        } else {
+            root = data;
+        }
+        
+        initialize(root);
+        accumulate(root);
+        //console.log(root.position_in_percent);
+        layout(root);
+        
+        display(root);
+        
+        if (window.parent !== window) {
+            var myheight = document.documentElement.scrollHeight || document.body.scrollHeight;
+            window.parent.postMessage({height: myheight}, '*');
+        }
+        
+        function initialize(root) {
+            root.x = root.y = 0;
+            root.dx = width;
+            root.dy = height;
+            root.depth = 0;
+        }
+        
+        // Aggregate the values for internal nodes. This is normally done by the
+        // treemap layout, but not here because of our custom implementation.
+        // We also take a snapshot of the original children (_children) to avoid
+        // the children being overwritten when when layout is computed.
+        function accumulate(d) {
+            d.value = d.position_in_percent;
+            return (d._children = d.values)
+            ? d.value = d.values.reduce(function(p, v) { return p + accumulate(v); }, 0)
+            : d.value;
+        }
+        // Compute the treemap layout recursively such that each group of siblings
+        // uses the same size (1×1) rather than the dimensions of the parent cell.
+        // This optimizes the layout for the current zoom state. Note that a wrapper
+        // object is created for the parent node for each group of siblings so that
+        // the parent’s dimensions are not discarded as we recurse. Since each group
+        // of sibling was laid out in 1×1, we must rescale to fit using absolute
+        // coordinates. This lets us use a viewport to zoom.
+        function layout(d) {
+            if (d._children) {
+                treemap.nodes({_children: d._children});
+                d._children.forEach(function(c) {
+                                    c.x = d.x + c.x * d.dx;
+                                    c.y = d.y + c.y * d.dy;
+                                    c.dx *= d.dx;
+                                    c.dy *= d.dy;
+                                    c.parent = d;
+                                    layout(c);
+                                    });
+            }
+        }
+        
+        function display(d) {
+            grandparent
+            .datum(d.parent)
+            .on("click", transition)
+            .select("text")
+            .text(name(d));
+            
+            var g1 = svg.insert("g", ".grandparent")
+            .datum(d)
+            .attr("class", "depth");
+            
+            var url="http://ivis.southeastasia.cloudapp.azure.com:5000/histPosition/"
+            
+            var g = g1.selectAll("g")
+            .data(d._children)
+            .enter().append("g")
+            .on("mousemove", function (d) {
+                tool.style("left", d3.event.pageX + 10 + "px")
+                tool.style("top", d3.event.pageY - 20 + "px")
+                tool.style("display", "inline-block");
+                tool.html(
+                               
+                                  
+
+                          d.key
+                          //d.values[0].key
+                          //d3.nest().key(function(d) { return d.issuer_name; }).key(function(d) { return d.position_holder; })
+                          //d.children ? null : d.name + "<br>" + ' $ ' + formatMoney(Math.round(d.size * 1000)) + ' ' + roundToTwo((d.value / 16147370.2) * 100) + '%'
+                          );
+                }).on("mouseout", function (d) {
+                      tool.style("display", "none");
+                               });
+            
+            g.filter(function(d) { return d._children; })
+            .classed("children", true)
+            .on("click", transition);
+            
+            // Very hacky solution, but I didn't find any other way to add OnClick to children
+            g.on("click", transition)
+            
+            var children = g.selectAll(".child")
+            .data(function(d) { return d._children || [d]; })
+            .enter().append("g");
+            
+            children.append("rect")
+            .attr("class", "child")
+            .call(rect)
+            .append("title")
+            .text(function(d) { return d.key + " (" + formatNumber(d.value) + ")"; });
+            children.append("text")
+            .attr("class", "ctext")
+            .text(function(d) {
+                  var val = d.value;
+                  //var hold = d.position_holder;
+                  //console.log(d.position_holder)
+                  if (!isNaN(val)) {
+                  if(!d._children){
+                  return("Trander short " + val.toFixed(2) + "%");}
+                  }
+                  /*if(d.parent){
+                    return ("Trader short " + val.toFixed(2) + "%");}
+                  else{
+                    return ("Position Holder" + hold + "/n" +"Trader short" + val.toFixed(2) + "%");}
+                    }*/
+                  //return "ISIN: " + val;
+                  })
+                  .call(text2);
+                  
+                  g.append("rect")
+                  .attr("class", "parent")
+                  .call(rect);
+                  
+                  var t = g.append("text")
+                  .attr("class", "ptext")
+                  .attr("dy", ".75em")
+                  
+                  t.append("tspan")
+                  .text(function(d) { var word = d.key.slice(0,6); return word; });
+                  t.append("tspan")
+                  .attr("dy", "1.0em")
+                  .text(function(d) { return formatNumber(d.value); });
+                  t.call(text);
+                  
+                  g.selectAll("rect")
+                  .style("fill", function(d) { return color(d.value); });
+                  
+                  function transition(d) {
+                      //console.log(d)
+                      if (transitioning || !d) return;
+                      if (d._children[0]._children == undefined) {  // Leaf nodes have no children.
+                          window.open('insightbarint.html?isin=' + d.key, '_blank');
+                          return;
+                      }
+                      
+                      transitioning = true;
+                      
+                      var g2 = display(d),
+                      t1 = g1.transition().duration(750),
+                      t2 = g2.transition().duration(750);
+                      
+                      // Update the domain only after entering new elements.
+                      x.domain([d.x, d.x + d.dx]);
+                      y.domain([d.y, d.y + d.dy]);
+                      
+                      // Enable anti-aliasing during the transition.
+                      svg.style("shape-rendering", null);
+                      
+                      // Draw child nodes on top of parent nodes.
+                      svg.selectAll(".depth").sort(function(a, b) { return a.depth - b.depth; });
+                      
+                      // Fade-in entering text.
+                      g2.selectAll("text").style("fill-opacity", 0);
+                      
+                      // Transition to the new view.
+                      t1.selectAll(".ptext").call(text).style("fill-opacity", 0);
+                      t1.selectAll(".ctext").call(text2).style("fill-opacity", 0);
+                      t2.selectAll(".ptext").call(text).style("fill-opacity", 1);
+                      t2.selectAll(".ctext").call(text2).style("fill-opacity", 1);
+                      t1.selectAll("rect").call(rect);
+                      t2.selectAll("rect").call(rect);
+                      
+                      // Remove the old node when the transition is finished.
+                      t1.remove().each("end", function() {
+                                       svg.style("shape-rendering", "crispEdges");
+                                       transitioning = false;
+                                       });
+                  }
+                  
+                  return g;
+        }
+        
+        function text(text) {
+            var offset = 6;
+            text.selectAll("tspan")
+            .attr("x", function(d) { return x(d.x + d.dx/2)-this.getComputedTextLength()/2 ; })
+            text.attr("x", function(d) { return x(d.x + d.dx/2)-offset ; })
+            .attr("y", function(d) { return y(d.y + d.dy/2)-offset ; })
+            .style("font-weight", "bold");
+            
+            var minFontSize = 4;
+            var maxFontSize = 20;
+            for (i = maxFontSize; i >= minFontSize; i--) {
+                text.style("font-size", function(d){
+                           if ((this.getComputedTextLength() + offset) < x(d.x + d.dx) - x(d.x)) {
+                           //cause an error to avoid actual errors
+                           return false;
+                           }
+                           return i + "px";
+                           })
+            }
+        }
+        
+        function text2(text) {
+            text.attr("x", function(d) { return x(d.x + d.dx/2) - this.getComputedTextLength()/2; })
+            .attr("y", function(d) { return y(d.y + d.dy/2) + 12; })
+            .style("opacity", function(d) { return this.getComputedTextLength() < x(d.x + d.dx) - x(d.x) ? 1 : 0; });
+        }
+        
+        /*function text(text) {
+            var offset = 6;
+            text.selectAll("tspan")
+            .attr("x", function(d) { return x(d.x) + offset; })
+            text.attr("x", function(d) { return x(d.x) + offset; })
+            .attr("y", function(d) { return y(d.y) + offset; })
+            .style("font-weight", "bold");
+            
+            var minFontSize = 4;
+            var maxFontSize = 20;
+            for (i = maxFontSize; i >= minFontSize; i--) {
+                text.style("font-size", function(d){
+                           if ((this.getComputedTextLength() + offset) < x(d.x + d.dx) - x(d.x)) {
+                           //cause an error to avoid actual errors
+                           return false;
+                           }
+                           return i + "px";
+                           })
+            }
+        }
+        
+        function text2(text) {
+            text.attr("x", function(d) { return x(d.x + d.dx) - this.getComputedTextLength() - 6; })
+            .attr("y", function(d) { return y(d.y + d.dy) - 6; })
+            .style("opacity", function(d) { return this.getComputedTextLength() < x(d.x + d.dx) - x(d.x) ? 1 : 0; });
+        }*/
+        
+        function rect(rect) {
+            rect.attr("x", function(d) { return x(d.x); })
+            .attr("y", function(d) { return y(d.y); })
+            .attr("width", function(d) { return x(d.x + d.dx) - x(d.x); })
+            .attr("height", function(d) { return y(d.y + d.dy) - y(d.y); });
+        }
+        
+        function name(d) {
+            var val = +d["value"];  //string to int
+            
+            val = val.toFixed(2); //truncate decimals
+            if (d.parent) {
+                return name(d.parent) + " / " + d.key + " (" + val + "%)"
+            } else {
+                return d.key /*+ " (" + val + "%)"*/;
+            }
+        }
+    }
+    
+    var formatmon = function (date) {
+        var y = date.getFullYear();
+        var m = date.getMonth() + 1;
+        m = m &lt; 10 ? ('0' + m) : m;
+        var d = date.getDate();
+        d = d &lt; 10 ? ('0' + d) : d;
+        return y + '-' + m + '-' + d;
+    };
+    
+    var url="http://ivis.southeastasia.cloudapp.azure.com:5000/currentPosition/"
+    if (window.location.hash === "") {
+        d3.json(url, function(err, res) {
+                if (!err) {
+                //if(formatmon(res.position_date)=="2019-01-28"){
+                //console.log(res.position_date);
+                var data = d3.nest().key(function(d) { return d.issuer_name; }).key(function(d) { return d.position_holder; }).entries(res);
+                var ph = d3.nest().key(function(d){return d.issuer_name;}).key(function(d){return d.isin; }).entries(res);
+                main({title: "ShortsellingOverview"}, {key: "Short Stocks", values: data});
+                
+                //console.log(data)//console.log(data);
+                 //   }
+                }
+                });
+    }
+    
+        </script>
+</body>
