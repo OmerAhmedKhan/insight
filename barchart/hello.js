@@ -25,7 +25,7 @@ var year = parseInt(getQueryVariable("year"));
 
 var transitionTime = 300;
 
-var months = ["January", "February", "Mars", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 function convertInsightDate(insightDate) {
   var splot = insightDate.split(" ")[0].split("/");  // mm-dd-yyyy
