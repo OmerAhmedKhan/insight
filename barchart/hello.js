@@ -4,7 +4,7 @@
 //   .attr("class", "canvas")
 
 var years = []
-for (var i = 2019; i >= 1991; i--)
+for (var i = 2018; i >= 1991; i--)
 {
   years.push(i)
 }
