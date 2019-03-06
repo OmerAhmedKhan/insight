@@ -1,7 +1,3 @@
-// var timeSvg = d3.select("#timeDiv").append("svg")
-//   .attr("width", 100)
-//   .attr("height", 200)
-//   .attr("class", "canvas")
 
 var years = []
 for (var i = 2018; i >= 1991; i--)
@@ -9,17 +5,40 @@ for (var i = 2018; i >= 1991; i--)
   years.push(i)
 }
 
-// years.forEach((e, i) => {
-//   timeSvg.append("text")
-//     .text(e)
-//     .attr("y", i*20)
+// To be replaced with a query that finds all unique company names
+var allCompanies = [
+  "Getinge AB",
+  "BIOARCTIC AB",
+  "SAAB AKTIEBOLAG",
+  "GSA CAPITAL PARTNERS LLP",
+  "MARSHALL WACE LLP"
+];
 
-// });
+autocomplete(document.getElementById("companySearch"), allCompanies);
 
-var isin = getQueryVariable("isin");
+d3.select("#companySubmit")
+  .on("click", function () {
+    updateCompany();
+  })
+d3.select("#companySearch")
+  .on("keydown", function() {
+    if(d3.event.keyCode === 13){
+      updateCompany();
+  }
+})
+
+function updateCompany() {
+  var inputName = document.getElementById('companySearch').value
+  if (allCompanies.includes(inputName)) {
+    console.log("Search for: " + inputName)
+    fullUpdate(companyName);
+  }
+}
+
+var companyName = getQueryVariable("company");
 // For development, just use an arbitrary isin if none has been specified
-if (isin == false) {
-  isin = "SE0000202624";
+if (companyName == false) {
+  companyName = "GETINGE AB";
 }
 var year = parseInt(getQueryVariable("year"));
 
@@ -116,12 +135,6 @@ var yAxis = d3.select("#graph").append("g")
   .attr("class", "y-axis")
 
 //axis labels
-// d3.select("#canvas1").append("text")
-// .attr("id", "x-axis-title")
-// .attr("class", "axis-title")
-// .attr("text-anchor", "middle")
-// .attr("transform", "translate(" + (width * (7/8)) + "," + (height - 10) +")")
-// .text("X AXIS LABEL")
 d3.select("#canvas1").append("text")
 .attr("id", "y-axis-title")
 .attr("class", "axis-title")
@@ -135,43 +148,49 @@ d3.select("#canvas2").append("text")
 .attr("transform", "translate(" + margin.left + "," + subfield/2 +")")
 .text("Shorts")
 
-var insightLocal = "insight.json"
-var insightLocal2018 = "insight2018.json"
-var shortposLocal = "curpos.json"
-var insightURL = "http://ivis.southeastasia.cloudapp.azure.com:5000/insync1991/"
-var insightURL2018 = "http://ivis.southeastasia.cloudapp.azure.com:5000/insync2018/"
-var shortposURL = "http://ivis.southeastasia.cloudapp.azure.com:5000/histPosition/"
-
-limit = 10000
-insightURL += ("?limit=" + limit) + ("&filter={\"isin\":\"" + isin + "\"}")
-insightURL2018 += ("?limit=" + limit) + ("&filter={\"isin\":\"" + isin + "\"}")
-shortposURL += ("?limit=" + limit) + ("&filter={\"isin\":\"" + isin + "\"}")
-
-var useLocalData = false
-var insightSource = insightURL
-var insightSource2018 = insightURL2018
-var shortposSource = shortposURL
-if (useLocalData) {
-  insightSource = insightLocal
-  insightSource2018 = insightLocal2018
-  shortposSource = shortposLocal
-}
-
 // This is probably not a very d3 way to do things, but it seems to work well enough
 var trades = []
 var curpos = []
 
-Promise.all([
-  d3.json(insightSource),
-  d3.json(shortposSource),
-  d3.json(insightSource2018)
-]).then(function(data)
-{
-  trades = data[0]
-  curpos = data[1]
-  trades = trades.concat(data[2]);
-  update(trades, curpos)
-});
+fullUpdate(companyName)
+
+function fullUpdate(newCompanyName) {
+  companyName = newCompanyName;
+  var insightLocal = "insight.json"
+  var insightLocal2018 = "insight2018.json"
+  var shortposLocal = "curpos.json"
+  var insightURL = "http://ivis.southeastasia.cloudapp.azure.com:5000/insync1991/"
+  var insightURL2018 = "http://ivis.southeastasia.cloudapp.azure.com:5000/insync2018/"
+  var shortposURL = "http://ivis.southeastasia.cloudapp.azure.com:5000/histPosition/"
+
+  limit = 10000
+  insightURL += ("?limit=" + limit) + ("&filter={\"Issuer\":\"" + encodeURIComponent(companyName) + "\"}")
+  insightURL2018 += ("?limit=" + limit) + ("&filter={\"Issuer\":\"" + encodeURIComponent(companyName) + "\"}")
+  shortposURL += ("?limit=" + limit) + ("&filter={\"position_holder\":\"" + encodeURIComponent(companyName) + "\"}")
+
+  var useLocalData = false
+  var insightSource = insightURL
+  var insightSource2018 = insightURL2018
+  var shortposSource = shortposURL
+  if (useLocalData) {
+    insightSource = insightLocal
+    insightSource2018 = insightLocal2018
+    shortposSource = shortposLocal
+  }
+
+  Promise.all([
+    d3.json(insightSource),
+    d3.json(shortposSource),
+    d3.json(insightSource2018)
+  ]).then(function(data)
+  {
+    trades = data[0]
+    curpos = data[1]
+    trades = trades.concat(data[2]);
+    update(trades, curpos)
+  });
+
+}
 
 function update(trades, curpos) {
     // Create a new array with the accumulated data
@@ -183,7 +202,7 @@ function update(trades, curpos) {
     }
 
     trades.forEach(e => {
-      if (e.isin == isin) {
+      if (e.isin == companyName) {
         var companyName = "";
         if (e.issuer) {
           companyName = e.issuer.split("\(")[0];
@@ -193,9 +212,9 @@ function update(trades, curpos) {
           companyName = e.Issuer.split("\(")[0]
         }
         d3.select("#heading")
-          .text("Insight: " + companyName + " (" + isin + ")")
+          .text("Insight: " + companyName + " (" + companyName + ")")
         d3.select("#title")
-        .text("Insight: " + companyName + " (" + isin + ")")
+        .text("Insight: " + companyName + " (" + companyName + ")")
         return;
       }
     });
@@ -207,8 +226,8 @@ function update(trades, curpos) {
     });
 
     var year = d3.select("#year").property("value")
-    trades = trades.filter(function(d){return d.year == year && d.isin == isin})
-    curpos = curpos.filter(function(d){return d.isin == isin && d.position_date.split("-")[0] == year})
+    trades = trades.filter(function(d){return d.Issuer == companyName && d.year == year})
+    curpos = curpos.filter(function(d){return d.position_holder == companyName && d.position_date.split("-")[0] == year})
 
 
 
@@ -235,8 +254,6 @@ function update(trades, curpos) {
       var month = parseInt(d.position_date.split("-")[1]);
       accumulatedCurpos[month-1].positions.push(d);
     })
-
-    // accumulatedCurpos = accumulatedCurpos.filter(function (d) { return d.positions.length != 0})
 
     //set scaling domains
     xScale.domain(accumulatedTrades.map(function (d, i) {
