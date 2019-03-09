@@ -29,7 +29,6 @@ d3.select("#companySearch")
 function updateCompany() {
   var inputName = document.getElementById('companySearch').value
   if (allCompanies.includes(inputName)) {
-    d3.select("#currentSearch").text("Showing insight for: " + inputName)
     fullUpdate(inputName);
   }
 }
@@ -155,6 +154,7 @@ fullUpdate(companyName)
 
 function fullUpdate(newCompanyName) {
   companyName = newCompanyName;
+  d3.select("#currentSearch").text("Showing insight for: " + companyName)
   var insightLocal = "insight.json"
   var insightLocal2018 = "insight2018.json"
   var shortposLocal = "curpos.json"

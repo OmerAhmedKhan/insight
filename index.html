@@ -228,9 +228,9 @@
       <div class="w-100">
         <h2 class="mb-5">Demo Video</h2>
 
-        
 
-        
+
+
     </section>
 
     <hr class="m-0">
@@ -240,7 +240,7 @@
         <h2 class="mb-5">Learning + Team Members</h2>
         <p class="lead mb-5">In this project, we successfully collaborate in groups,as well as work alone to create visualization with interaction of data. We have better understanding of the data transformations, visual mappings and view transformation. We learnt a lot from the designing of the prototype, preparing of the database and api, then implementing the JS and other code. We also enhance the visualization based on the feedback from students, teachers and the partner. During the presentation, we improved the demonstration skill as well.</p>
         <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/member.png" alt="">
-            
+
       </div>
     </section>
 
@@ -439,7 +439,7 @@
                       //console.log(d)
                       if (transitioning || !d) return;
                       if (d._children[0]._children == undefined) {  // Leaf nodes have no children.
-                          window.open('barchart/index.html?isin=' + d.values[0].isin, '_blank');
+                          window.open('barchart/index.html?company=' + d.values[0].issuer_name, '_blank');
                           return;
                       }
                       transitioning = true;
