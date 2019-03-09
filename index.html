@@ -217,9 +217,6 @@
       <div class="w-100">
         <h2 class="mb-5">Treemap of Short Selling Data</h2>
          <div id="chart"></div>
-         <div>
-          <iframe src="barchart/index.html" id="bariframe" width="960" height="700"></iframe>
-        </div>
       </div>
 
     </section>
@@ -441,11 +438,7 @@
                       //console.log(d)
                       if (transitioning || !d) return;
                       if (d._children[0]._children == undefined) {  // Leaf nodes have no children.
-                          $("#bariframe").contents().find("div").html('barchart/index.html?company=' + d.values[0].issuer_name, '_blank');
-                          var loc = 'barchart/index.html?company=' + d.values[0].issuer_name;
-                          document.getElementById('bariframe').src = loc;
-                          // , 'barchart/index.html?company=' + d.values[0].issuer_name, '_blank')
-                          // window.open('barchart/index.html?company=' + d.values[0].issuer_name, '_blank');
+                          window.open('barchart/index.html?company=' + d.values[0].issuer_name, '_blank');
                           return;
                       }
                       transitioning = true;
