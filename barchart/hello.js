@@ -11,7 +11,14 @@ Promise.all([
   d3.json("http://ivis.southeastasia.cloudapp.azure.com:5000/uniqueNames/")
 ]).then(function(data)
 {
-  allCompanies = data[0].filter(function(d) { return !d.endsWith('(PUBL)')})
+  allCompanies = data[0];
+  for (let i = 0; i < allCompanies.length; i++) {
+    var splot = allCompanies[i].split(" \(");
+    if(splot.length > 1)
+      allCompanies[i] = splot[splot.length-2];
+  }
+  allCompanies = allCompanies.filter(function(item, i, ar){ return ar.indexOf(item) === i; });  // get unique values
+  allCompanies.sort();
   autocomplete(document.getElementById("companySearch"), allCompanies);
 });
 
@@ -34,10 +41,12 @@ function updateCompany() {
 }
 
 var companyName = getQueryVariable("company");
-// For development, just use an arbitrary isin if none has been specified
-// if (companyName == false) {
-//   companyName = "GETINGE AB";
-// }
+if (companyName) {
+  var splot = companyName.split(" \(");
+  if(splot.length > 1)
+    companyName = splot[splot.length - 2]
+}
+
 var year = parseInt(getQueryVariable("year"));
 
 var transitionTime = 300;
@@ -154,7 +163,7 @@ fullUpdate(companyName)
 
 function fullUpdate(newCompanyName) {
   companyName = newCompanyName;
-  d3.select("#currentSearch").text("Showing insight for: " + companyName)
+  d3.select("#currentSearch").text(companyName == false? "" : "Showing insight for: " + companyName)
   var insightLocal = "insight.json"
   var insightLocal2018 = "insight2018.json"
   var shortposLocal = "curpos.json"
