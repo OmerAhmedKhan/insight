@@ -27,3 +27,21 @@ def get_records(collection, filter, offset=0, limit=500):
         return None
 
     return list(records)
+
+def get_uniquie_names():
+    unique_records = []
+    try:
+        records = db['insyn_1991'].find({}).distinct('issuer')
+    except:
+        logging.exception('ERROR')
+        return None
+
+    unique_records.extend(list(records))
+    try:
+        records = db['insyn_2018'].find({}).distinct('Issuer')
+    except:
+        logging.exception('ERROR')
+        return None
+
+    unique_records.extend(records)
+    return list(unique_records)

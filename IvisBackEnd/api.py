@@ -1,11 +1,14 @@
 from flask import Flask
 from flask_restful import Resource, Api
-from module import get_records
+from module import get_records, get_uniquie_names
 from flask_cors import CORS
 from json import loads
 from flask_restful import request
 import logging
 from flask import jsonify
+from flask_failsafe import failsafe
+
+
 
 logging.basicConfig(filename='error.log',level=logging.ERROR)
 
@@ -61,6 +64,7 @@ class CurrentPositionRecords(Resource):
         limit = int(args.get('limit', 500))
         offset = int(args.get('offset', 0))
         filters = loads(args.get('filter', "{}"))
+
         records = get_records('current_position', filters, offset, limit)
         if records is None:
             return {}, 401
@@ -95,6 +99,12 @@ class Insync2018(Resource):
         limit = int(args.get('limit', 500))
         offset = int(args.get('offset', 0))
         filters = loads(args.get('filter', "{}"))
+        if filters.get('issuer'):
+            filters['Issuer'] = filters['Issuer'].lower()
+
+        if filters.get('Issuer'):
+            filters['Issuer'] = filters['Issuer'].lower()
+
         records = get_records('insyn_2018', filters, offset, limit)
         if records is None:
             return {}, 401
@@ -105,13 +115,14 @@ class Insync1991(Resource):
     def get(self):
         filters = {}
         args = request.args
+
         if not basic_validations(args):
             return {}, 401
 
         limit = int(args.get('limit', 500))
         offset = int(args.get('offset', 0))
         filters = loads(args.get('filter', "{}"))
-        records = get_records('insyn_2018', filters, offset, limit)
+        records = get_records('insyn_1991', filters, offset, limit)
         if records is None:
             return {}, 401
 
@@ -133,9 +144,19 @@ class Instrumenmt(Resource):
 
         return jsonify(records)
 
+class UniqueNames(Resource):
+    def get(self):
+
+        records = get_uniquie_names()
+        if records is None:
+            return {}, 401
+
+        return jsonify(records)
 
 
 
+
+api.add_resource(UniqueNames, '/uniqueNames/')
 api.add_resource(CurrentPositionRecords, '/currentPosition/')
 api.add_resource(HistPositionRecords, '/histPosition/')
 api.add_resource(Insync2018, '/insync2018/')
@@ -143,4 +164,9 @@ api.add_resource(Insync1991, '/insync1991/')
 api.add_resource(Instrumenmt, '/instruments/')
 
 if __name__ == '__main__':
+    # @failsafe
+    # def create_app():
+    #     return app
+    #
+    # create_app().run(debug=True, port=5000, host='0.0.0.0')
     app.run(debug=True, port=5000, host='0.0.0.0')
