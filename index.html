@@ -165,12 +165,11 @@
         <li class="nav-item">
           <a class="nav-link js-scroll-trigger" href="#experience">Insight</a>
         </li>
-       
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#skills">Skills</a>
+          <a class="nav-link js-scroll-trigger" href="#skills">DemoVideo</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#interests">Members</a>
+          <a class="nav-link js-scroll-trigger" href="#interests">Learning + Members</a>
         </li>
       </ul>
     </div>
@@ -183,22 +182,30 @@
         <h1 class="mb-0">Insight
           <span class="text-primary">Visualization Project</span>
         </h1>
-        <div class="subheading mb-5">Visualising Financial Data: PDMR transactions and net short positions
+        <div class="subheading mb-5">Visualising Financial Data: PDMR transactions and net short positions for
           <a href="https://fi.se/">Swedish FSA</a>
         </div>
-        <p class="lead mb-5">We are students from 2019 information visualization course in KTH. We got an offer from Swidish FSA and aims to visualise transaction patterns on the Swedish capital market. We hope to support them to improve market transparency for a more effective market and prevent market abuse.</p>
+        <div class="subheading mb-5">Project Description
+        </div>
+        <p class="lead mb-5">We are group 10 from 2019 KTH Information Visualization course. We received an offer from the Swedish FSA, with an aim to visualise transaction patterns on the Swedish capital market. We aim to support them to improve market transparency for a more effective market and prevent market abuse.<br>The PDMR transaction data is visualised as the bar chart. And the short position data is shown as the treemap.</p>
         <div class="social-icons">
-          <a href="#">
-            <i class="fab fa-linkedin-in"></i>
-          </a>
-          <a href="#">
+          <a href="https://github.com/Schnigle/insight">
             <i class="fab fa-github"></i>
           </a>
-          <a href="#">
-            <i class="fab fa-twitter"></i>
+          <a href="https://www.linkedin.com/in/皓晴-沈-318ab5157">
+            <i class="fab fa-linkedin"></i>
           </a>
-          <a href="#">
-            <i class="fab fa-facebook-f"></i>
+          <a href="https://www.linkedin.com/in/tomas-andersson-6800a6138">
+              <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/fredrik-albrektson-057932142">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/doris-an-kth">
+              <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/omerahmedkhan">
+              <i class="fab fa-linkedin"></i>
           </a>
         </div>
       </div>
@@ -219,62 +226,21 @@
 
     <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="skills">
       <div class="w-100">
-        <h2 class="mb-5">Skills</h2>
+        <h2 class="mb-5">Demo Video</h2>
 
-        <div class="subheading mb-3">Programming Languages &amp; Tools</div>
-        <ul class="list-inline dev-icons">
-          <li class="list-inline-item">
-            <i class="fab fa-js-square"></i>
-          </li>
-          <li class="list-inline-item">
-            <i class="fab fa-angular"></i>
-          </li>
-          <li class="list-inline-item">
-            <i class="fab fa-react"></i>
-          </li>
-          <li class="list-inline-item">
-            <i class="fab fa-node-js"></i>
-          </li>
-          <li class="list-inline-item">
-            <i class="fab fa-sass"></i>
-          </li>
-          <li class="list-inline-item">
-            <i class="fab fa-less"></i>
-          </li>
-          <li class="list-inline-item">
-            <i class="fab fa-wordpress"></i>
-          </li>
-        </ul>
+        
 
-        <div class="subheading mb-3">Workflow</div>
-        <ul class="fa-ul mb-0">
-          <li>
-            <i class="fa-li fa fa-check"></i>
-            Database Setting</li>
-          <li>
-            <i class="fa-li fa fa-check"></i>
-            Visualization Desigen</li>
-          <li>
-            <i class="fa-li fa fa-check"></i>
-           Front-end Coding</li>
-          <li>
-            <i class="fa-li fa fa-check"></i>
-            Back-end Coding</li>
-        </ul>
-      </div>
+        
     </section>
 
     <hr class="m-0">
 
     <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="interests">
       <div class="w-100">
-        <h2 class="mb-5">Team Members</h2>
-        <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/1.jpg" alt="">
-        <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/2.jpg" alt="">
-        <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/3.jpg" alt="">
-        <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/4.jpg" alt="">
-        <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/5.jpg" alt="">
-            <p>XingAn &amp;Fredrik Albrektson &amp; Haoqing Shen &amp; Tomas Andersson &amp; Omer Ahmed</p>
+        <h2 class="mb-5">Learning + Team Members</h2>
+        <p class="lead mb-5">In this project, we successfully collaborate in groups,as well as work alone to create visualization with interaction of data. We have better understanding of the data transformations, visual mappings and view transformation. We learnt a lot from the designing of the prototype, preparing of the database and api, then implementing the JS and other code. We also enhance the visualization based on the feedback from students, teachers and the partner. During the presentation, we improved the demonstration skill as well.</p>
+        <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/member.png" alt="">
+            
       </div>
     </section>
 
@@ -439,7 +405,7 @@
                   //console.log(d.position_holder)
                   if (!isNaN(val)) {
                   if(!d._children){
-                  return("Trander short " + val.toFixed(2) + "%");}
+                  return("Trader short " + val.toFixed(2) + "%");}
                   }
                   /*if(d.parent){
                     return ("Trader short " + val.toFixed(2) + "%");}
@@ -473,7 +439,7 @@
                       //console.log(d)
                       if (transitioning || !d) return;
                       if (d._children[0]._children == undefined) {  // Leaf nodes have no children.
-                          window.open('barchart/index.html?isin=' + d.key, '_blank');
+                          window.open('barchart/index.html?isin=' + d.values[0].isin, '_blank');
                           return;
                       }
                       transitioning = true;
@@ -582,7 +548,7 @@
                 if (!err) {
                 //if(formatmon(res.position_date)=="2019-01-28"){
                 //console.log(res.position_date);
-                var data = d3.nest().key(function(d) { return d.issuer_name; }).key(function(d) { return d.isin; }).entries(res);
+                var data = d3.nest().key(function(d) { return d.issuer_name; }).key(function(d) { return d.position_holder; }).entries(res);
                 var ph = d3.nest().key(function(d){return d.issuer_name;}).key(function(d){return d.isin; }).entries(res);
                 main({title: "ShortsellingOverview"}, {key: "Short Stocks", values: data});
                 //console.log(data)//console.log(data);

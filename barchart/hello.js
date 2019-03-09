@@ -240,12 +240,12 @@ function update(trades, curpos) {
     })
     console.log(curpos)
     var year = d3.select("#year").property("value")
+    
     trades = trades.filter(function(d){return d.year == year})
     // trades = trades.filter(function(d){return (d.Issuer == companyName || d.issuer == companyName) && d.year == year})
     curpos = curpos.filter(function(d){return d.year == year})
     console.log(curpos)
     // curpos = curpos.filter(function(d){return d.issuer_name == companyName && d.position_date.split("-")[0] == year})
-
 
 
     trades.forEach(function(d) {
