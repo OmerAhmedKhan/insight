@@ -1,7 +1,3 @@
-// var timeSvg = d3.select("#timeDiv").append("svg")
-//   .attr("width", 100)
-//   .attr("height", 200)
-//   .attr("class", "canvas")
 
 var years = []
 for (var i = 2018; i >= 1991; i--)
@@ -9,18 +5,40 @@ for (var i = 2018; i >= 1991; i--)
   years.push(i)
 }
 
-// years.forEach((e, i) => {
-//   timeSvg.append("text")
-//     .text(e)
-//     .attr("y", i*20)
+var allCompanies = []
 
-// });
+Promise.all([
+  d3.json("http://ivis.southeastasia.cloudapp.azure.com:5000/uniqueNames/")
+]).then(function(data)
+{
+  allCompanies = data[0].filter(function(d) { return !d.endsWith('(PUBL)')})
+  autocomplete(document.getElementById("companySearch"), allCompanies);
+});
 
-var isin = getQueryVariable("isin");
-// For development, just use an arbitrary isin if none has been specified
-if (isin == false) {
-  isin = "SE0000202624";
+d3.select("#companySubmit")
+  .on("click", function () {
+    updateCompany();
+  })
+d3.select("#companySearch")
+  .on("keydown", function() {
+    if(d3.event.keyCode === 13){
+      updateCompany();
+  }
+})
+
+function updateCompany() {
+  var inputName = document.getElementById('companySearch').value
+  if (allCompanies.includes(inputName)) {
+    d3.select("#currentSearch").text("Showing insight for: " + inputName)
+    fullUpdate(inputName);
+  }
 }
+
+var companyName = getQueryVariable("company");
+// For development, just use an arbitrary isin if none has been specified
+// if (companyName == false) {
+//   companyName = "GETINGE AB";
+// }
 var year = parseInt(getQueryVariable("year"));
 
 var transitionTime = 300;
@@ -116,12 +134,6 @@ var yAxis = d3.select("#graph").append("g")
   .attr("class", "y-axis")
 
 //axis labels
-// d3.select("#canvas1").append("text")
-// .attr("id", "x-axis-title")
-// .attr("class", "axis-title")
-// .attr("text-anchor", "middle")
-// .attr("transform", "translate(" + (width * (7/8)) + "," + (height - 10) +")")
-// .text("X AXIS LABEL")
 d3.select("#canvas1").append("text")
 .attr("id", "y-axis-title")
 .attr("class", "axis-title")
@@ -135,43 +147,49 @@ d3.select("#canvas2").append("text")
 .attr("transform", "translate(" + margin.left + "," + subfield/2 +")")
 .text("Shorts")
 
-var insightLocal = "insight.json"
-var insightLocal2018 = "insight2018.json"
-var shortposLocal = "curpos.json"
-var insightURL = "http://ivis.southeastasia.cloudapp.azure.com:5000/insync1991/"
-var insightURL2018 = "http://ivis.southeastasia.cloudapp.azure.com:5000/insync2018/"
-var shortposURL = "http://ivis.southeastasia.cloudapp.azure.com:5000/histPosition/"
-
-limit = 10000
-insightURL += ("?limit=" + limit) + ("&filter={\"isin\":\"" + isin + "\"}")
-insightURL2018 += ("?limit=" + limit) + ("&filter={\"isin\":\"" + isin + "\"}")
-shortposURL += ("?limit=" + limit) + ("&filter={\"isin\":\"" + isin + "\"}")
-
-var useLocalData = false
-var insightSource = insightURL
-var insightSource2018 = insightURL2018
-var shortposSource = shortposURL
-if (useLocalData) {
-  insightSource = insightLocal
-  insightSource2018 = insightLocal2018
-  shortposSource = shortposLocal
-}
-
 // This is probably not a very d3 way to do things, but it seems to work well enough
 var trades = []
 var curpos = []
 
-Promise.all([
-  d3.json(insightSource),
-  d3.json(shortposSource),
-  d3.json(insightSource2018)
-]).then(function(data)
-{
-  trades = data[0]
-  curpos = data[1]
-  trades = trades.concat(data[2]);
-  update(trades, curpos)
-});
+fullUpdate(companyName)
+
+function fullUpdate(newCompanyName) {
+  companyName = newCompanyName;
+  var insightLocal = "insight.json"
+  var insightLocal2018 = "insight2018.json"
+  var shortposLocal = "curpos.json"
+  var insightURL = "http://ivis.southeastasia.cloudapp.azure.com:5000/insync1991/"
+  var insightURL2018 = "http://ivis.southeastasia.cloudapp.azure.com:5000/insync2018/"
+  var shortposURL = "http://ivis.southeastasia.cloudapp.azure.com:5000/histPosition/"
+
+  limit = 10000
+  insightURL += ("?limit=" + limit) + ("&filter={\"issuer\":\"" + encodeURIComponent(companyName + " (PUBL)") + "\"}")
+  insightURL2018 += ("?limit=" + limit) + ("&filter={\"Issuer\":\"" + encodeURIComponent(companyName) + "\"}")
+  shortposURL += ("?limit=" + limit) + ("&filter={\"issuer_name\":\"" + encodeURIComponent(companyName) + "\"}")
+
+  var useLocalData = false
+  var insightSource = insightURL
+  var insightSource2018 = insightURL2018
+  var shortposSource = shortposURL
+  if (useLocalData) {
+    insightSource = insightLocal
+    insightSource2018 = insightLocal2018
+    shortposSource = shortposLocal
+  }
+
+  Promise.all([
+    d3.json(insightSource),
+    d3.json(shortposSource),
+    d3.json(insightSource2018)
+  ]).then(function(data)
+  {
+    trades = data[0]
+    curpos = data[1]
+    trades = trades.concat(data[2]);
+    update(trades, curpos)
+  });
+
+}
 
 function update(trades, curpos) {
     // Create a new array with the accumulated data
@@ -183,7 +201,7 @@ function update(trades, curpos) {
     }
 
     trades.forEach(e => {
-      if (e.isin == isin) {
+      if (e.isin == companyName) {
         var companyName = "";
         if (e.issuer) {
           companyName = e.issuer.split("\(")[0];
@@ -193,9 +211,9 @@ function update(trades, curpos) {
           companyName = e.Issuer.split("\(")[0]
         }
         d3.select("#heading")
-          .text("Insight: " + companyName + " (" + isin + ")")
+          .text("Insight: " + companyName + " (" + companyName + ")")
         d3.select("#title")
-        .text("Insight: " + companyName + " (" + isin + ")")
+        .text("Insight: " + companyName + " (" + companyName + ")")
         return;
       }
     });
@@ -205,15 +223,23 @@ function update(trades, curpos) {
       d.month = date.getMonth();
       d.year = date.getFullYear();
     });
-
-    var year = d3.select("#year").property("value")
-    trades = trades.filter(function(d){return d.year == year && d.isin == isin})
-    curpos = curpos.filter(function(d){
-      return d.isin == isin && (
-        d.position_date.split("-")[0] == year ||
-        d.position_date.split("/")[2] == year
-      )
+    curpos.forEach(function(d) {
+      if (d.position_date.includes('-')) {
+        var splot = d.position_date.split("-")
+        d.year = parseInt(splot[0])
+        d.month = parseInt(splot[1])
+      }
+      else
+      {
+        var splot = d.position_date.split("/");
+        d.year = parseInt(splot[2])
+        d.month = parseInt(splot[0])
+      }
     })
+    var year = d3.select("#year").property("value")
+
+    trades = trades.filter(function(d){return d.year == year})
+    curpos = curpos.filter(function(d){return d.year == year})
 
 
     trades.forEach(function(d) {
@@ -226,7 +252,7 @@ function update(trades, curpos) {
       }
       else
       {
-        accumulatedTradesNeg[d.month].value += value; // TODO change
+        accumulatedTradesNeg[d.month].value += value;
       }
     })
 
@@ -236,19 +262,8 @@ function update(trades, curpos) {
     }
 
     curpos.forEach(function (d) {
-      //dates are written either month/day/year (i.e. mm/dd/yyyy)
-      //or as year-month-day (i.e. yyyy-mm-dd)
-      var date = d.position_date;
-      var month
-      if (date.includes("-")) {
-        month = parseInt(date.split("-")[1])
-      } else {
-        month = parseInt(date.split("/")[0])
-      }
-      accumulatedCurpos[month-1].positions.push(d);
+      accumulatedCurpos[d.month-1].positions.push(d);
     })
-
-    // accumulatedCurpos = accumulatedCurpos.filter(function (d) { return d.positions.length != 0})
 
     //set scaling domains
     xScale.domain(accumulatedTrades.map(function (d, i) {
