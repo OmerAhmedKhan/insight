@@ -439,7 +439,7 @@
                       //console.log(d)
                       if (transitioning || !d) return;
                       if (d._children[0]._children == undefined) {  // Leaf nodes have no children.
-                          window.open('barchart/index.html?isin=' + d.key, '_blank');
+                          window.open('barchart/index.html?isin=' + d.values[0].isin, '_blank');
                           return;
                       }
                       transitioning = true;
