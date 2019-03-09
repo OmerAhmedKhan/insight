@@ -200,24 +200,6 @@ function update(trades, curpos) {
       accumulatedTradesNeg.push({"month":months[i], "value":0});
     }
 
-    trades.forEach(e => {
-      if (e.isin == companyName) {
-        var companyName = "";
-        if (e.issuer) {
-          companyName = e.issuer.split("\(")[0];
-        }
-        if (e.Issuer)
-        {
-          companyName = e.Issuer.split("\(")[0]
-        }
-        d3.select("#heading")
-          .text("Insight: " + companyName + " (" + companyName + ")")
-        d3.select("#title")
-        .text("Insight: " + companyName + " (" + companyName + ")")
-        return;
-      }
-    });
-
     trades.forEach(function(d) {
       var date = convertInsightDate(d.transaction_date);
       d.month = date.getMonth();
