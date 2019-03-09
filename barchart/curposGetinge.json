@@ -1,0 +1,37 @@
+[
+  {
+    "isin": "SE0000202624",
+    "issuer_name": "GETINGE AB",
+    "position_date": "2019-01-30",
+    "position_holder": "TOWER HOUSE PARTNERS LLP",
+    "position_in_percent": 0.77
+  },
+  {
+    "isin": "SE0000202624",
+    "issuer_name": "GETINGE AB",
+    "position_date": "2018-11-01",
+    "position_holder": "BLACKROCK INVESTMENT MANAGEMENT (UK) LIMITED",
+    "position_in_percent": 0.86
+  },
+  {
+    "isin": "SE0000202624",
+    "issuer_name": "GETINGE AB",
+    "position_date": "2019-01-25",
+    "position_holder": "MARSHALL WACE LLP",
+    "position_in_percent": 1.51
+  },
+  {
+    "isin": "SE0000202624",
+    "issuer_name": "GETINGE AB",
+    "position_date": "2018-10-16",
+    "position_holder": "ADELPHI CAPITAL LLP",
+    "position_in_percent": 0.97
+  },
+  {
+    "isin": "SE0000202624",
+    "issuer_name": "GETINGE AB",
+    "position_date": "2019-01-23",
+    "position_holder": "AQR CAPITAL MANAGEMENT, LLC",
+    "position_in_percent": 1.39
+  }
+]

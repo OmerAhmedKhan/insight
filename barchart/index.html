@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<link href="style.css" rel="stylesheet" type="text/css">
+
+	<head>
+		<meta charset="utf-8"/>
+		<title id="title">Insight</title>
+	</head>
+
+	<body>
+		<div>
+			<h1 id="heading">Insight</h1>
+		</div>
+		<!-- <input type="text" placeholder="Search..."> -->
+		<div class="autocomplete" style="width:300px;">
+			<input id="companySearch" type="text" placeholder="Search for companies...">
+		</div>
+		<input type="submit" id="companySubmit">
+		<br>
+		<br>
+		<div id="currentSearch"> </div>
+		<br>
+		Choose year:
+		<select id="year"></select>
+		<!-- <input type="checkbox" id="logscale">
+		Use logarithmic scale -->
+		<br>
+		<br>
+		<div class="d3">
+			<div class="tradeInfo" id="tradeDiv"> </div>
+			<div class="shortInfo" id="shortDiv"> </div>
+
+		<script src="https://d3js.org/d3.v5.min.js"></script>
+		<script src="../getvariable.js"></script>
+		<script src="autocomplete.js"></script>
+		<script src="hello.js"></script>
+	</body>
+</html>
