@@ -15,7 +15,6 @@ function autocomplete(inp, arr) {
         triggerComplete(this);
     });
     function triggerComplete(elem) {
-        console.log("compl")
         var a, b, i, val = elem.value;
         /*close any already open lists of autocompleted values*/
         closeAllLists();

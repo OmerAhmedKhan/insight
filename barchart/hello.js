@@ -5,16 +5,15 @@ for (var i = 2018; i >= 1991; i--)
   years.push(i)
 }
 
-// To be replaced with a query that finds all unique company names
-var allCompanies = [
-  "Getinge AB",
-  "BIOARCTIC AB",
-  "SAAB AKTIEBOLAG",
-  "GSA CAPITAL PARTNERS LLP",
-  "MARSHALL WACE LLP"
-];
+var allCompanies = []
 
-autocomplete(document.getElementById("companySearch"), allCompanies);
+Promise.all([
+  d3.json("http://ivis.southeastasia.cloudapp.azure.com:5000/uniqueNames/")
+]).then(function(data)
+{
+  allCompanies = data[0].filter(function(d) { return !d.endsWith('(PUBL)')})
+  autocomplete(document.getElementById("companySearch"), allCompanies);
+});
 
 d3.select("#companySubmit")
   .on("click", function () {
@@ -30,16 +29,16 @@ d3.select("#companySearch")
 function updateCompany() {
   var inputName = document.getElementById('companySearch').value
   if (allCompanies.includes(inputName)) {
-    console.log("Search for: " + inputName)
-    fullUpdate(companyName);
+    d3.select("#currentSearch").text("Showing insight for: " + inputName)
+    fullUpdate(inputName);
   }
 }
 
 var companyName = getQueryVariable("company");
 // For development, just use an arbitrary isin if none has been specified
-if (companyName == false) {
-  companyName = "GETINGE AB";
-}
+// if (companyName == false) {
+//   companyName = "GETINGE AB";
+// }
 var year = parseInt(getQueryVariable("year"));
 
 var transitionTime = 300;
@@ -164,9 +163,9 @@ function fullUpdate(newCompanyName) {
   var shortposURL = "http://ivis.southeastasia.cloudapp.azure.com:5000/histPosition/"
 
   limit = 10000
-  insightURL += ("?limit=" + limit) + ("&filter={\"Issuer\":\"" + encodeURIComponent(companyName) + "\"}")
+  insightURL += ("?limit=" + limit) + ("&filter={\"issuer\":\"" + encodeURIComponent(companyName + " (PUBL)") + "\"}")
   insightURL2018 += ("?limit=" + limit) + ("&filter={\"Issuer\":\"" + encodeURIComponent(companyName) + "\"}")
-  shortposURL += ("?limit=" + limit) + ("&filter={\"position_holder\":\"" + encodeURIComponent(companyName) + "\"}")
+  shortposURL += ("?limit=" + limit) + ("&filter={\"issuer_name\":\"" + encodeURIComponent(companyName) + "\"}")
 
   var useLocalData = false
   var insightSource = insightURL
@@ -224,10 +223,28 @@ function update(trades, curpos) {
       d.month = date.getMonth();
       d.year = date.getFullYear();
     });
-
+    curpos.forEach(function(d) {
+      if (d.position_date.includes('-')) {
+        // console.log("-  " + d.position_date)
+        var splot = d.position_date.split("-")
+        d.year = parseInt(splot[0])
+        d.month = parseInt(splot[1])
+      }
+      else
+      {
+        // console.log("/  " + d.position_date)
+        var splot = d.position_date.split("/");
+        d.year = parseInt(splot[2])
+        d.month = parseInt(splot[0])
+      }
+    })
+    console.log(curpos)
     var year = d3.select("#year").property("value")
-    trades = trades.filter(function(d){return d.Issuer == companyName && d.year == year})
-    curpos = curpos.filter(function(d){return d.position_holder == companyName && d.position_date.split("-")[0] == year})
+    trades = trades.filter(function(d){return d.year == year})
+    // trades = trades.filter(function(d){return (d.Issuer == companyName || d.issuer == companyName) && d.year == year})
+    curpos = curpos.filter(function(d){return d.year == year})
+    console.log(curpos)
+    // curpos = curpos.filter(function(d){return d.issuer_name == companyName && d.position_date.split("-")[0] == year})
 
 
 
@@ -241,7 +258,7 @@ function update(trades, curpos) {
       }
       else
       {
-        accumulatedTradesNeg[d.month].value += value; // TODO change
+        accumulatedTradesNeg[d.month].value += value;
       }
     })
 
@@ -251,8 +268,7 @@ function update(trades, curpos) {
     }
 
     curpos.forEach(function (d) {
-      var month = parseInt(d.position_date.split("-")[1]);
-      accumulatedCurpos[month-1].positions.push(d);
+      accumulatedCurpos[d.month-1].positions.push(d);
     })
 
     //set scaling domains
