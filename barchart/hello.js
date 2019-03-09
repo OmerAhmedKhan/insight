@@ -208,8 +208,12 @@ function update(trades, curpos) {
 
     var year = d3.select("#year").property("value")
     trades = trades.filter(function(d){return d.year == year && d.isin == isin})
-    curpos = curpos.filter(function(d){return d.isin == isin && d.position_date.split("-")[0] == year})
-
+    curpos = curpos.filter(function(d){
+      return d.isin == isin && (
+        d.position_date.split("-")[0] == year ||
+        d.position_date.split("/")[2] == year
+      )
+    })
 
 
     trades.forEach(function(d) {
@@ -232,7 +236,15 @@ function update(trades, curpos) {
     }
 
     curpos.forEach(function (d) {
-      var month = parseInt(d.position_date.split("-")[1]);
+      //dates are written either month/day/year (i.e. mm/dd/yyyy)
+      //or as year-month-day (i.e. yyyy-mm-dd)
+      var date = d.position_date;
+      var month
+      if (date.includes("-")) {
+        month = parseInt(date.split("-")[1])
+      } else {
+        month = parseInt(date.split("/")[0])
+      }
       accumulatedCurpos[month-1].positions.push(d);
     })
 
