@@ -29,7 +29,26 @@
             font-size: 12px;
             color: #696969;
         }
-
+        .column {
+        float: left;
+        width: 20%;
+        margin-bottom: 16px;
+        padding: 0 8px;
+    }
+    
+    /* Display the columns below each other instead of side by side on small screens */
+    @media screen and (max-width: 650px) {
+        .column {
+            width: 100%;
+            display: block;
+        }
+    }
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 300px;
+        margin: auto;
+        text-align: center;
+    }
         .ticks {
             font-size: 10px;
         }
@@ -160,7 +179,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#about">About</a>
+          <a class="nav-link js-scroll-trigger" href="#about">Introduction</a>
         </li>
         <li class="nav-item">
           <a class="nav-link js-scroll-trigger" href="#experience">Insight</a>
@@ -169,7 +188,7 @@
           <a class="nav-link js-scroll-trigger" href="#skills">DemoVideo</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#interests">Learning + Members</a>
+          <a class="nav-link js-scroll-trigger" href="#interests">About Us</a>
         </li>
       </ul>
     </div>
@@ -192,7 +211,7 @@
           <a href="https://github.com/Schnigle/insight">
             <i class="fab fa-github"></i>
           </a>
-          <a href="https://www.linkedin.com/in/皓晴-沈-318ab5157">
+          <!--<a href="https://www.linkedin.com/in/皓晴-沈-318ab5157">
             <i class="fab fa-linkedin"></i>
           </a>
           <a href="https://www.linkedin.com/in/tomas-andersson-6800a6138">
@@ -206,7 +225,7 @@
           </a>
           <a href="https://www.linkedin.com/in/omerahmedkhan">
               <i class="fab fa-linkedin"></i>
-          </a>
+          </a>-->
         </div>
       </div>
     </section>
@@ -237,9 +256,62 @@
 
     <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="interests">
       <div class="w-100">
-        <h2 class="mb-5">Learning + Team Members</h2>
+        <h2 class="mb-5">About Us</h2>
+        
+         <div class="row">
+        <div class="column">
+        <div class="card">
+            <img src="img/1.jpg" alt="John" class="img-fluid img-profile rounded-circle mx-auto mb-2" >
+                <h4>Xing An</h4>
+                <a href="mailto:xinga@kth.se"> xinga@kth.se</a>
+                <p class="lead mb-1">Vis Design, Front-end</p>
+                <a href="https://www.linkedin.com/in/doris-an-kth"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/Sunflower411"><i class="fab fa-github"></i></a>
+        </div>
+         </div>
+        <div class="column">
+        <div class="card">
+            <img src="img/2.jpg" alt="John" class="img-fluid img-profile rounded-circle mx-auto mb-2">
+                <h4>Fredrik Albrektson</h4>
+                <a href="mailto:frealb@kth.se"> frealb@kth.se</a>
+                <p class="lead mb-1">Contact, Front-end</p>
+                <a href="https://www.linkedin.com/in/fredrik-albrektson-057932142"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/Albrektson"><i class="fab fa-github"></i></a>
+        </div>
+        </div>
+        <div class="column">
+        <div class="card">
+            <img src="img/3.jpg" alt="John" class="img-fluid img-profile rounded-circle mx-auto mb-2" >
+                <h4>Haoqing Shen</h4>
+                <a href="mailto:shenh@kth.se"> shenh@kth.se</a>
+                <p class="lead mb-1">Front-end, Website
+                </p><a href="https://www.linkedin.com/in/皓晴-沈-318ab5157"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/amyshenhq"><i class="fab fa-github"></i></a>
+        </div>
+        </div>
+        <div class="column">
+        <div class="card">
+            <img src="img/4.jpg" alt="John" class="img-fluid img-profile rounded-circle mx-auto mb-2" >
+                <h4>Tomas Andersson</h4>
+                <a href="mailto:tomas3@kth.se"> tomas3@kth.se</a>
+                <p class="lead mb-1">Front-end, Back-end</p>
+                <a href="https://www.linkedin.com/in/tomas-andersson-6800a6138"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/Schnigle"><i class="fab fa-github"></i></a>
+        </div>
+        </div>
+        <div class="column">
+        <div class="card">
+            <img src="img/5.jpg" alt="John" class="img-fluid img-profile rounded-circle mx-auto mb-2" >
+                <h4>Omer Ahmed Khan</h4>
+                <a href="mailto:oakhan@kth.se"> oakhan@kth.se</a>
+                <p class="lead mb-1">Database, API</p>
+                <a href="https://www.linkedin.com/in/omerahmedkhan"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/OmerAhmedKhan"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+        </div>
+        
         <p class="lead mb-5">In this project, we successfully collaborate in groups,as well as work alone to create visualization with interaction of data. We have better understanding of the data transformations, visual mappings and view transformation. We learnt a lot from the designing of the prototype, preparing of the database and api, then implementing the JS and other code. We also enhance the visualization based on the feedback from students, teachers and the partner. During the presentation, we improved the demonstration skill as well.</p>
-        <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/member.png" alt="">
 
       </div>
     </section>
