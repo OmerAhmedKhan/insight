@@ -5,6 +5,53 @@ for (var i = 2018; i >= 1991; i--)
   years.push(i)
 }
 
+var labelSvg = d3.select("#labels").append("svg").attr("height", 100).attr("width", 500)
+
+var labelY = 25;
+var labelYSpacing = 25;
+
+labelSvg.append("rect")
+  .attr("width", "10")
+  .attr("height", "10")
+  .attr("x", "10")
+  .attr("y", labelY)
+  .attr("class", "bar-positive")
+labelSvg.append("text")
+  .text("Acquisition (Förvärv)")
+  .attr("x", "30")
+  .attr("y", labelY + 10)
+  .attr("fill", "white")
+
+labelY+=labelYSpacing;
+
+labelSvg.append("rect")
+  .attr("width", "10")
+  .attr("height", "10")
+  .attr("x", "10")
+  .attr("y", labelY)
+  .attr("class", "bar-negative")
+labelSvg.append("text")
+  .text("Disposal (Avyttring)")
+  .attr("x", "30")
+  .attr("y", labelY + 10)
+  .attr("fill", "white")
+
+labelY+=labelYSpacing;
+
+labelSvg.append("rect")
+  .attr("width", "10")
+  .attr("height", "10")
+  .attr("x", "10")
+  .attr("y", labelY)
+  .attr("fill", "#ff7000")
+  // .attr("class", "short")
+labelSvg.append("text")
+  .text("Position, hover for details")
+  .attr("x", "30")
+  .attr("y", labelY + 10)
+  .attr("fill", "white")
+
+
 var allCompanies = []
 
 Promise.all([
@@ -12,7 +59,6 @@ Promise.all([
 ]).then(function(data)
 {
   allCompanies = data[0];
-  console.log(allCompanies)
   for (let i = 0; i < allCompanies.length; i++) {
     var splot = allCompanies[i].split(" \(");
     if(splot.length > 1){
