@@ -1,367 +1,372 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>IVIS2019-Insight</title>
-
-  <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Custom fonts for this template -->
-  <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet">
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
-
-  <!-- Custom styles for this template -->
-  <link href="css/resume.min.css" rel="stylesheet">
-      <script src="https://d3js.org/d3.v3.min.js"></script>
-      <script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
-
-    <style>
-        body {
-            font-family:"avenir next", Arial, sans-serif;
-            font-size: 12px;
-            color: #696969;
-        }
-        .column {
-        float: left;
-        width: 20%;
-        margin-bottom: 16px;
-        padding: 0 8px;
-    }
     
-    /* Display the columns below each other instead of side by side on small screens */
-    @media screen and (max-width: 650px) {
-        .column {
-            width: 100%;
-            display: block;
-        }
-    }
-    .card {
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        max-width: 300px;
-        margin: auto;
-        text-align: center;
-    }
-        .ticks {
-            font-size: 10px;
-        }
-
-        .track,
-        .track-inset,
-        .track-overlay {
-            stroke-linecap: round;
-        }
-
-        .track {
-            stroke: #000;
-            stroke-opacity: 0.3;
-            stroke-width: 10px;
-        }
-
-        .track-inset {
-            stroke: #ddd;
-            stroke-width: 8px;
-        }
-
-        .track-overlay {
-            pointer-events: stroke;
-            stroke-width: 50px;
-            stroke: transparent;
-            cursor: crosshair;
-        }
-
-        .handle {
-            fill: #fff;
-            stroke: #000;
-            stroke-opacity: 0.5;
-            stroke-width: 1.25px;
-        }
-
-        #chart {
-            background: #fff;
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        }
-
-        .title {
-            font-weight: bold;
-            font-size: 24px;
-            text-align: center;
-            margin-top: 6px;
-            margin-bottom: 6px;
-        }
-        text {
-            pointer-events: none;
-        }
-
-        .grandparent text {
-            font-weight: bold;
-        }
-
-        rect {
-            fill: none;
-            stroke: #fff;
-        }
-
-        rect.parent,
-        .grandparent rect {
-            stroke-width: 2px;
-        }
-
-        rect.parent {
-            cursor: pointer;
-        }
-
-        rect.parent:hover {
-            opacity: 0.7;
-        }
-
-        .grandparent rect {
-            fill: #9e9ac8;
-        }
-
-        .grandparent:hover rect {
-            fill: #9e9ac8;
-        }
-
-        .children rect.parent,
-        .grandparent rect {
-            cursor: pointer;
-        }
-
-        .children rect.parent {
-            fill: #bbb;
-            fill-opacity: .5;
-        }
-
-        .children:hover rect.child {
-            fill: #bbb;
-        }
-
-        .ctext {
-            font-size: 11px;
-        }
-        .toolTip {
-            position: absolute;
-            display: none;
-            width: auto;
-            height: auto;
-            background: none repeat scroll 0 0 black;
-            border: 0 none;
-            border-radius: 8px 8px 8px 8px;
-            box-shadow: -3px 3px 15px #888888;
-            color: white;
-            font: 12px sans-serif;
-            padding: 5px;
-            text-align: center;
-        }
-    </style>
-
-</head>
-<body id="page-top">
-
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
-    <a class="navbar-brand js-scroll-trigger" href="#page-top">
-      <span class="d-block d-lg-none">Insight</span>
-      <span class="d-none d-lg-block">
-        <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/profile.jpg" alt="">
-      </span>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#about">Introduction</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#experience">Insight</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#skills">DemoVideo</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#interests">About Us</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-
-  <div class="container-fluid p-0">
-
-    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="about">
-      <div class="w-100">
-        <h1 class="mb-0">Insight
-          <span class="text-primary">Visualization Project</span>
-        </h1>
-        <div class="subheading mb-5">Visualising Financial Data: PDMR transactions and net short positions for
-          <a href="https://fi.se/">Swedish FSA</a>
-        </div>
-        <div class="subheading mb-5">Project Description
-        </div>
-        <p class="lead mb-5">We are group 10 from 2019 KTH Information Visualization course. We received an offer from the Swedish FSA, with an aim to visualise transaction patterns on the Swedish capital market. We aim to support them to improve market transparency for a more effective market and prevent market abuse.<br>The PDMR transaction data is visualised as the bar chart. And the short position data is shown as the treemap.</p>
-        <div class="social-icons">
-          <a href="https://github.com/Schnigle/insight">
-            <i class="fab fa-github"></i>
-          </a>
-          <!--<a href="https://www.linkedin.com/in/皓晴-沈-318ab5157">
-            <i class="fab fa-linkedin"></i>
-          </a>
-          <a href="https://www.linkedin.com/in/tomas-andersson-6800a6138">
-              <i class="fab fa-linkedin"></i>
-          </a>
-          <a href="https://www.linkedin.com/in/fredrik-albrektson-057932142">
-            <i class="fab fa-linkedin"></i>
-          </a>
-          <a href="https://www.linkedin.com/in/doris-an-kth">
-              <i class="fab fa-linkedin"></i>
-          </a>
-          <a href="https://www.linkedin.com/in/omerahmedkhan">
-              <i class="fab fa-linkedin"></i>
-          </a>-->
-        </div>
-      </div>
-    </section>
-
-    <hr class="m-0">
-
-    <section class="resume-section p-3 p-lg-5 d-flex justify-content-center" id="experience">
-      <div class="w-100">
-        <h2 class="mb-5">Treemap of Short Selling Data</h2>
+    <head>
         
-         <div id="chart"></div>
-         <p class="subheading mb-4">Instruction</p>
-         <p class="lead mb-5">The short position (selling) is shown in the treemap categorised by the issuer name.<br> When you click on the issuer name, the different position holders and the specific percentage will show.<br>If you want to go back to the issuer name overview, click on the short Stocks bar.</p>
-         
-      </div>
-
-    </section>
-
-
-    <hr class="m-0">
-
-    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="skills">
-      <div class="w-100">
-        <h2 class="mb-5">Demo Video</h2>
-
-
-
-
-    </section>
-
-    <hr class="m-0">
-
-    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="interests">
-      <div class="w-100">
-        <h2 class="mb-5">About Us</h2>
-        <div class="subheading mb-3">Team Members</div>
-         <div class="row">
-        <div class="column">
-        <div class="card">
-            <img src="img/1.jpg" alt="John" class="img-fluid img-profile rounded-circle mx-auto mb-2" >
-                <h4>Xing An</h4>
-                <a href="mailto:xinga@kth.se"> xinga@kth.se</a>
-                <p class="lead mb-1">Vis Design, Front-end</p>
-                <a href="https://www.linkedin.com/in/doris-an-kth"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://github.com/Sunflower411"><i class="fab fa-github"></i></a>
+        <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                <meta name="description" content="">
+                    <meta name="author" content="">
+                        
+                        <title>IVIS2019-Insight</title>
+                        
+                        <!-- Bootstrap core CSS -->
+                        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+                            
+                            <!-- Custom fonts for this template -->
+                            <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet">
+                                <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet">
+                                    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+                                        
+                                        <!-- Custom styles for this template -->
+                                        <link href="css/resume.min.css" rel="stylesheet">
+                                            <script src="https://d3js.org/d3.v3.min.js"></script>
+                                            <script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
+                                            
+                                            <style>
+                                                body {
+                                                    font-family:"avenir next", Arial, sans-serif;
+                                                    font-size: 12px;
+                                                    color: #696969;
+                                                }
+                                            .column {
+                                                float: left;
+                                                width: 20%;
+                                                margin-bottom: 16px;
+                                                padding: 0 8px;
+                                            }
+                                            
+                                            /* Display the columns below each other instead of side by side on small screens */
+                                            @media screen and (max-width: 650px) {
+                                                .column {
+                                                    width: 100%;
+                                                    display: block;
+                                                }
+                                            }
+                                            .card {
+                                                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+                                                max-width: 300px;
+                                                margin: auto;
+                                                text-align: center;
+                                            }
+                                            .ticks {
+                                                font-size: 10px;
+                                            }
+                                            .track,
+                                            .track-inset,
+                                            .track-overlay {
+                                                stroke-linecap: round;
+                                            }
+                                            .track {
+                                                stroke: #000;
+                                                stroke-opacity: 0.3;
+                                                stroke-width: 10px;
+                                            }
+                                            .track-inset {
+                                                stroke: #ddd;
+                                                stroke-width: 8px;
+                                            }
+                                            .track-overlay {
+                                                pointer-events: stroke;
+                                                stroke-width: 50px;
+                                                stroke: transparent;
+                                                cursor: crosshair;
+                                            }
+                                            .handle {
+                                                fill: #fff;
+                                                stroke: #000;
+                                                stroke-opacity: 0.5;
+                                                stroke-width: 1.25px;
+                                            }
+                                            #chart {
+                                                background: #fff;
+                                                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                            }
+                                            .title {
+                                                font-weight: bold;
+                                                font-size: 24px;
+                                                text-align: center;
+                                                margin-top: 6px;
+                                                margin-bottom: 6px;
+                                            }
+                                            text {
+                                                pointer-events: none;
+                                            }
+                                            .grandparent text {
+                                                font-weight: bold;
+                                            }
+                                            rect {
+                                                fill: none;
+                                                stroke: #fff;
+                                            }
+                                            rect.parent,
+                                            .grandparent rect {
+                                                stroke-width: 2px;
+                                            }
+                                            rect.parent {
+                                                cursor: pointer;
+                                            }
+                                            rect.parent:hover {
+                                                opacity: 0.5;
+                                            }
+                                            .grandparent rect {
+                                                fill: #008B8B;
+                                            }
+                                            .grandparent:hover rect {
+                                                fill: #008B8B;
+                                            }
+                                            .children rect.parent,
+                                            .grandparent rect {
+                                                cursor: pointer;
+                                            }
+                                            .children rect.parent {
+                                                fill: #bbb;
+                                                fill-opacity: 1.0;
+                                            }
+                                            .children:hover rect.child {
+                                                fill: #bbb;
+                                            }
+                                            .ctext {
+                                                font-size: 11px;
+                                            }
+                                            .toolTip {
+                                                position: absolute;
+                                                display: none;
+                                                width: auto;
+                                                height: auto;
+                                                background: none repeat scroll 0 0 black;
+                                                border: 0 none;
+                                                border-radius: 8px 8px 8px 8px;
+                                                box-shadow: -3px 3px 15px #888888;
+                                                color: white;
+                                                font: 12px sans-serif;
+                                                padding: 5px;
+                                                text-align: center;
+                                            }
+                                            </style>
+                                            
+    </head>
+    <body id="page-top">
+        
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">
+                <span class="d-block d-lg-none">Insight</span>
+                <span class="d-none d-lg-block">
+                    <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/profile.jpg" alt="">
+                        </span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#about">Introduction</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#experience">Insight</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#skills">Demo Video</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#interests">About Us</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        
+        <div class="container-fluid p-0">
+            
+            <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="about">
+                <div class="w-100">
+                    <h1 class="mb-0">Insight
+                        <span class="text-primary">Visualization Project</span>
+                    </h1>
+                    <div class="subheading mb-5">Visualising Financial Data: PDMR transactions and net short positions for
+                        <a href="https://fi.se/">Swedish FSA</a>
+                    </div>
+                    <div class="subheading mb-5">Project Description
+                    </div>
+                    <p class="lead mb-5">We are group 10 from 2019 KTH Information Visualization course. We received an offer from the Swedish FSA, with an aim to visualise transaction patterns on the Swedish capital market. We aim to support them to improve market transparency for a more effective market and prevent market abuse.<br>The PDMR transaction data is visualised as the bar chart. And the short position data is shown as the treemap.</p>
+                    <div class="social-icons">
+                        <a href="https://github.com/Schnigle/insight">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <!--<a href="https://www.linkedin.com/in/皓晴-沈-318ab5157">
+                         <i class="fab fa-linkedin"></i>
+                         </a>
+                         <a href="https://www.linkedin.com/in/tomas-andersson-6800a6138">
+                         <i class="fab fa-linkedin"></i>
+                         </a>
+                         <a href="https://www.linkedin.com/in/fredrik-albrektson-057932142">
+                         <i class="fab fa-linkedin"></i>
+                         </a>
+                         <a href="https://www.linkedin.com/in/doris-an-kth">
+                         <i class="fab fa-linkedin"></i>
+                         </a>
+                         <a href="https://www.linkedin.com/in/omerahmedkhan">
+                         <i class="fab fa-linkedin"></i>
+                         </a>-->
+                    </div>
+                </div>
+            </section>
+            
+            <hr class="m-0">
+            
+            <section class="resume-section p-3 p-lg-5 d-flex justify-content-center" id="experience">
+                <div class="w-100">
+                    <h2 class="mb-5">Treemap of Short Selling Data</h2>
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col"><div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-secondary" onclick="updateData1()">History Position</button>
+                                    <button type="button" class="btn btn-secondary" onclick="updateData2()">Current Position</button>
+                                </div></th>
+                                <th scope="col"><div id="se"><label> Choose Issuer: </label></div></th>
+                                <th scope="col"><p>Instruction:<br>Overview: issuer name in short selling<br>Selector: find the chosen issuer block<br> Zoom in: position holder and its trading time,percentage<br>Click on: PDMR bar chart of this issuer</p></th>
+                            </tr>
+                        </thead>
+                    </table>
+                    
+                    
+                    
+                    <div id="chart"></div>
+                    
+                    
+                </div>
+                
+            </section>
+            
+            
+            <hr class="m-0">
+            
+            <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="skills">
+                <div class="w-100">
+                    <h2 class="mb-5">Demo Video</h2>
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="..."></iframe>
+                    </div>
+                    </div>
+                    </section>
+            
+            <hr class="m-0">
+            
+            <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="interests">
+                <div class="w-100">
+                    <h2 class="mb-5">About Us</h2>
+                    <div class="subheading mb-3">Team Members</div>
+                    <div class="row">
+                        <div class="column">
+                            <div class="card">
+                                <img src="img/1.jpg" alt="John" class="img-fluid img-profile rounded-circle mx-auto mb-2" >
+                                    <h4>Xing An</h4>
+                                    <a href="mailto:xinga@kth.se"> xinga@kth.se</a>
+                                    <p class="lead mb-1">Vis Design, Front-end</p>
+                                    <a href="https://www.linkedin.com/in/doris-an-kth"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="https://github.com/Sunflower411"><i class="fab fa-github"></i></a>
+                                    </div>
+                        </div>
+                        <div class="column">
+                            <div class="card">
+                                <img src="img/2.jpg" alt="John" class="img-fluid img-profile rounded-circle mx-auto mb-2">
+                                    <h4>Fredrik Albrektson</h4>
+                                    <a href="mailto:frealb@kth.se"> frealb@kth.se</a>
+                                    <p class="lead mb-1">Contact, Front-end</p>
+                                    <a href="https://www.linkedin.com/in/fredrik-albrektson-057932142"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="https://github.com/Albrektson"><i class="fab fa-github"></i></a>
+                                    </div>
+                        </div>
+                        <div class="column">
+                            <div class="card">
+                                <img src="img/3.jpg" alt="John" class="img-fluid img-profile rounded-circle mx-auto mb-2" >
+                                    <h4>Haoqing Shen</h4>
+                                    <a href="mailto:shenh@kth.se"> shenh@kth.se</a>
+                                    <p class="lead mb-1">Front-end, Website
+                                    </p><a href="https://www.linkedin.com/in/皓晴-沈-318ab5157"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="https://github.com/amyshenhq"><i class="fab fa-github"></i></a>
+                                    </div>
+                        </div>
+                        <div class="column">
+                            <div class="card">
+                                <img src="img/4.jpg" alt="John" class="img-fluid img-profile rounded-circle mx-auto mb-2" >
+                                    <h4>Tomas Andersson</h4>
+                                    <a href="mailto:tomas3@kth.se"> tomas3@kth.se</a>
+                                    <p class="lead mb-1">Front-end, Back-end</p>
+                                    <a href="https://www.linkedin.com/in/tomas-andersson-6800a6138"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="https://github.com/Schnigle"><i class="fab fa-github"></i></a>
+                                    </div>
+                        </div>
+                        <div class="column">
+                            <div class="card">
+                                <img src="img/5.jpg" alt="John" class="img-fluid img-profile rounded-circle mx-auto mb-2" >
+                                    <h4>Omer Ahmed Khan</h4>
+                                    <a href="mailto:oakhan@kth.se"> oakhan@kth.se</a>
+                                    <p class="lead mb-1">Database, API</p>
+                                    <a href="https://www.linkedin.com/in/omerahmedkhan"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="https://github.com/OmerAhmedKhan"><i class="fab fa-github"></i></a>
+                                    </div>
+                        </div>
+                    </div>
+                    <div class="subheading mb-3">Our Learning</div>
+                    <p class="lead mb-5">In this project, we successfully collaborate in groups,as well as work alone to create visualization with interaction of data. We have better understanding of the data transformations, visual mappings and view transformation. We learnt a lot from the designing of the prototype, preparing of the database and api, then implementing the JS and other code. We also enhance the visualization based on the feedback from students, teachers and the partner. During the presentation, we improved the demonstration skill as well.</p>
+                    
+                </div>
+            </section>
+            
+            <hr class="m-0">
+            
         </div>
-         </div>
-        <div class="column">
-        <div class="card">
-            <img src="img/2.jpg" alt="John" class="img-fluid img-profile rounded-circle mx-auto mb-2">
-                <h4>Fredrik Albrektson</h4>
-                <a href="mailto:frealb@kth.se"> frealb@kth.se</a>
-                <p class="lead mb-1">Contact, Front-end</p>
-                <a href="https://www.linkedin.com/in/fredrik-albrektson-057932142"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://github.com/Albrektson"><i class="fab fa-github"></i></a>
-        </div>
-        </div>
-        <div class="column">
-        <div class="card">
-            <img src="img/3.jpg" alt="John" class="img-fluid img-profile rounded-circle mx-auto mb-2" >
-                <h4>Haoqing Shen</h4>
-                <a href="mailto:shenh@kth.se"> shenh@kth.se</a>
-                <p class="lead mb-1">Front-end, Website
-                </p><a href="https://www.linkedin.com/in/皓晴-沈-318ab5157"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://github.com/amyshenhq"><i class="fab fa-github"></i></a>
-        </div>
-        </div>
-        <div class="column">
-        <div class="card">
-            <img src="img/4.jpg" alt="John" class="img-fluid img-profile rounded-circle mx-auto mb-2" >
-                <h4>Tomas Andersson</h4>
-                <a href="mailto:tomas3@kth.se"> tomas3@kth.se</a>
-                <p class="lead mb-1">Front-end, Back-end</p>
-                <a href="https://www.linkedin.com/in/tomas-andersson-6800a6138"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://github.com/Schnigle"><i class="fab fa-github"></i></a>
-        </div>
-        </div>
-        <div class="column">
-        <div class="card">
-            <img src="img/5.jpg" alt="John" class="img-fluid img-profile rounded-circle mx-auto mb-2" >
-                <h4>Omer Ahmed Khan</h4>
-                <a href="mailto:oakhan@kth.se"> oakhan@kth.se</a>
-                <p class="lead mb-1">Database, API</p>
-                <a href="https://www.linkedin.com/in/omerahmedkhan"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://github.com/OmerAhmedKhan"><i class="fab fa-github"></i></a>
-        </div>
-      </div>
-        </div>
-        <div class="subheading mb-3">Our Learning</div>
-        <p class="lead mb-5">In this project, we successfully collaborate in groups,as well as work alone to create visualization with interaction of data. We have better understanding of the data transformations, visual mappings and view transformation. We learnt a lot from the designing of the prototype, preparing of the database and api, then implementing the JS and other code. We also enhance the visualization based on the feedback from students, teachers and the partner. During the presentation, we improved the demonstration skill as well.</p>
-
-      </div>
-    </section>
-
-    <hr class="m-0">
-
-  </div>
-   <script>
-        window.addEventListener('message', function(e) {
-                                var opts = e.data.opts,
-                                data = e.data.data;
-                                return main(opts, data);
-                                });
-                                var defaults = {
-                                    margin: {top: 24, right: 0, bottom: 0, left: 0},
-                                    rootname: "TOP",
-                                    format: ",d",
-                                    title: "",
-                                    width: 960,
-                                    height: 500
-                                };
-    var tool = d3.select("body").append("div").attr("class", "toolTip");
-    function main(o, data) {
+        <script>
+            var selectname = d3.select("#se")
+            .append("select")
+            .attr("class","form-control  form-control-sm");
+            
+            var url1="http://ivis.southeastasia.cloudapp.azure.com:5000/histPosition/"
+            var url2="http://ivis.southeastasia.cloudapp.azure.com:5000/currentPosition/"
+            var tool = d3.select("body").append("div").attr("class", "toolTip");
+            var defaults = {
+                margin: {top: 24, right: 0, bottom: 0, left: 0},
+                rootname: "Short Selling",
+                format: ",d",
+                width: 1000,
+                height: 600
+            };
+        
         var root,
-        opts = $.extend(true, {}, defaults, o),
+        opts = $.extend(true, {}, defaults),
         formatNumber = d3.format(opts.format),
         rname = opts.rootname,
         margin = opts.margin,
         theight = 36 + 16;
+        
         $('#chart').width(opts.width).height(opts.height);
         var width = opts.width - margin.left - margin.right,
         height = opts.height - margin.top - margin.bottom - theight,
         transitioning;
-        var pur=["#3f007d","#54278f","#6a51a3","#807dba","#9e9ac8","#bcbddc", "#dadaeb","#efedf5","#fcfbfd"];
-        var color = d3.scale.ordinal().range(pur);
+        
+        
+        var pur=["#54278f","#6a51a3","#807dba","#9e9ac8","#bcbddc", "#dadaeb","#8c6bb1"];
+        var d2=["#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02", "#a6761d", "#666666"];
+        var set2=["#66c2a5","#fc8d62","#8da0cb","#e78ac3","#a6d854","#ffd92f","#e5c494","#b3b3b3"]
+        var pbg=["#bfd3e6","#9ebcda","#d0d1e6","#a6bddb","#67a9cf","#3690c0","#02818a","#016c59","#014636"]
+        var color = d3.scale.ordinal().range(pbg);
+        
         var x = d3.scale.linear()
         .domain([0, width])
         .range([0, width]);
+        
         var y = d3.scale.linear()
         .domain([0, height])
         .range([0, height]);
+        
         var treemap = d3.layout.treemap()
         .children(function(d, depth) { return depth ? null : d._children; })
         .sort(function(a, b) { return a.value - b.value; })
         .ratio(height / width * 0.5 * (1 + Math.sqrt(5)))
         .round(false);
+        
         var svg = d3.select("#chart").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.bottom + margin.top)
@@ -370,49 +375,119 @@
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .style("shape-rendering", "crispEdges");
+        
         var grandparent = svg.append("g")
         .attr("class", "grandparent");
+        
         grandparent.append("rect")
         .attr("y", -margin.top)
         .attr("width", width)
         .attr("height", margin.top);
+        
         grandparent.append("text")
         .attr("x", 6)
         .attr("y", 6 - margin.top)
         .attr("dy", ".75em");
-        if (opts.title) {
-            $("#chart").prepend("<p class='title'>" + opts.title + "</p>");
+        
+        
+        
+        
+        
+        
+        
+        
+        function updateData1(){
+            d3.json(url1, function(err, res) {
+                    if (!err) {
+                    //if(formatmon(res.position_date)=="2019-01-28"){
+                    //console.log(res.position_date);
+                    var data = d3.nest().key(function(d) { return d.issuer_name; }).key(function(d) { return d.position_holder; }).entries(res);
+                    //console.log(data);
+                    if (data instanceof Array) {
+                    root = { key: rname, values: data };
+                    } else {
+                    root = data;
+                    }
+                    
+                    initialize(root);
+                    accumulate(root);
+                    //console.log(root);
+                    layout(root);
+                    display(root);
+                    
+                    }
+                    });
         }
-        if (data instanceof Array) {
-            root = { key: rname, values: data };
-        } else {
-            root = data;
+        function updateData2(){
+            d3.json(url2, function(err, res) {
+                    if (!err) {
+                    //if(formatmon(res.position_date)=="2019-01-28"){
+                    //console.log(res.position_date);
+                    var data = d3.nest().key(function(d) { return d.issuer_name; }).key(function(d) { return d.position_holder; }).entries(res);
+                    
+                    
+                    if (data instanceof Array) {
+                    root = { key: rname, values: data };
+                    } else {
+                    root = data;
+                    }
+                    
+                    initialize(root);
+                    accumulate(root);
+                    layout(root);
+                    
+                    display(root);
+                    
+                    }
+                    });
         }
-        initialize(root);
-        accumulate(root);
-        //console.log(root.position_in_percent);
-        layout(root);
-        display(root);
+        
+        
+        
+        
+        /*if (opts.title) {
+         $("#chart").prepend("<p class='title'>" + opts.title + "</p>");
+         }
+         if (data instanceof Array) {
+         root = { key: rname, values: data };
+         } else {
+         root = data;
+         }
+         
+         initialize(root);
+         accumulate(root);
+         //console.log(root.position_in_percent);
+         layout(root);
+         
+         display(root);*/
+        
         if (window.parent !== window) {
             var myheight = document.documentElement.scrollHeight || document.body.scrollHeight;
             window.parent.postMessage({height: myheight}, '*');
         }
+        
         function initialize(root) {
             root.x = root.y = 0;
             root.dx = width;
             root.dy = height;
             root.depth = 0;
         }
+        
         // Aggregate the values for internal nodes. This is normally done by the
         // treemap layout, but not here because of our custom implementation.
         // We also take a snapshot of the original children (_children) to avoid
         // the children being overwritten when when layout is computed.
         function accumulate(d) {
             d.value = d.position_in_percent;
+            if(d.value =="<0,5"){
+                d.value=0.5;
+            }
             return (d._children = d.values)
             ? d.value = d.values.reduce(function(p, v) { return p + accumulate(v); }, 0)
             : d.value;
+            
         }
+        
         // Compute the treemap layout recursively such that each group of siblings
         // uses the same size (1×1) rather than the dimensions of the parent cell.
         // This optimizes the layout for the current zoom state. Note that a wrapper
@@ -433,16 +508,20 @@
                                     });
             }
         }
+        
         function display(d) {
             grandparent
             .datum(d.parent)
             .on("click", transition)
             .select("text")
             .text(name(d));
+            //console.log(d.parent);
             var g1 = svg.insert("g", ".grandparent")
             .datum(d)
             .attr("class", "depth");
+            
             var url="http://ivis.southeastasia.cloudapp.azure.com:5000/histPosition/"
+            
             var g = g1.selectAll("g")
             .data(d._children)
             .enter().append("g")
@@ -451,6 +530,9 @@
                 tool.style("top", d3.event.pageY - 20 + "px")
                 tool.style("display", "inline-block");
                 tool.html(
+                          
+                          
+                          
                           d.key
                           //d.values[0].key
                           //d3.nest().key(function(d) { return d.issuer_name; }).key(function(d) { return d.position_holder; })
@@ -458,93 +540,161 @@
                           );
                 }).on("mouseout", function (d) {
                       tool.style("display", "none");
-                               });
-            g.filter(function(d) { return d._children; })
-            .classed("children", true)
-            .on("click", transition);
-            // Very hacky solution, but I didn't find any other way to add OnClick to children
-            g.on("click", transition)
-            var children = g.selectAll(".child")
-            .data(function(d) { return d._children || [d]; })
-            .enter().append("g");
-            children.append("rect")
-            .attr("class", "child")
-            .call(rect)
-            .append("title")
-            .text(function(d) { return d.key + " (" + formatNumber(d.value) + ")"; });
-            children.append("text")
-            .attr("class", "ctext")
-            .text(function(d) {
-                  var val = d.value;
-                  //var hold = d.position_holder;
-                  //console.log(d.position_holder)
-                  if (!isNaN(val)) {
-                  if(!d._children){
-                  return("Trader short " + val.toFixed(2) + "%");}
-                  }
-                  /*if(d.parent){
-                    return ("Trader short " + val.toFixed(2) + "%");}
-                  else{
-                    return ("Position Holder" + hold + "/n" +"Trader short" + val.toFixed(2) + "%");}
-                    }*/
-                  //return "ISIN: " + val;
-                  })
-                  .call(text2);
-                  g.append("rect")
-                  .attr("class", "parent")
-                  .call(rect);
-                  var t = g.append("text")
-                  .attr("class", "ptext")
-                  .attr("dy", ".75em")
-                  t.append("tspan")
-                  .text(function(d) { if(d._children[0]._children == undefined){
-                        return d.key;
-                        }
-                        else{
-                        return d.key.slice(0, 6);
-                        }
-                        });
-                  t.append("tspan")
-                  .attr("dy", "1.0em")
-                  .text(function(d) { return formatNumber(d.value); });
-                  t.call(text);
-                  g.selectAll("rect")
-                  .style("fill", function(d) { return color(d.value); });
-                  function transition(d) {
-                      //console.log(d)
-                      if (transitioning || !d) return;
-                      if (d._children[0]._children == undefined) {  // Leaf nodes have no children.
-                          window.open('barchart/index.html?company=' + d.values[0].issuer_name, '_blank');
-                          return;
-                      }
-                      transitioning = true;
-                      var g2 = display(d),
-                      t1 = g1.transition().duration(750),
-                      t2 = g2.transition().duration(750);
-                      // Update the domain only after entering new elements.
-                      x.domain([d.x, d.x + d.dx]);
-                      y.domain([d.y, d.y + d.dy]);
-                      // Enable anti-aliasing during the transition.
-                      svg.style("shape-rendering", null);
-                      // Draw child nodes on top of parent nodes.
-                      svg.selectAll(".depth").sort(function(a, b) { return a.depth - b.depth; });
-                      // Fade-in entering text.
-                      g2.selectAll("text").style("fill-opacity", 0);
-                      // Transition to the new view.
-                      t1.selectAll(".ptext").call(text).style("fill-opacity", 0);
-                      t1.selectAll(".ctext").call(text2).style("fill-opacity", 0);
-                      t2.selectAll(".ptext").call(text).style("fill-opacity", 1);
-                      t2.selectAll(".ctext").call(text2).style("fill-opacity", 1);
-                      t1.selectAll("rect").call(rect);
-                      t2.selectAll("rect").call(rect);
-                      // Remove the old node when the transition is finished.
-                      t1.remove().each("end", function() {
-                                       svg.style("shape-rendering", "crispEdges");
-                                       transitioning = false;
-                                       });
-                  }
-                  return g;
+                      });
+                      
+                      g.filter(function(d) { return d._children; })
+                      .classed("children", true)
+                      .on("click", transition);
+                      
+                      // Very hacky solution, but I didn't find any other way to add OnClick to children
+                      g.on("click", transition)
+                      
+                      var children = g.selectAll(".child")
+                      .data(function(d) { return d._children || [d]; })
+                      .enter().append("g");
+                      
+                      children.append("rect")
+                      .attr("class", "child")
+                      .call(rect)
+                      .append("title")
+                      .text(function(d) { return d.key + " (" + formatNumber(d.value) + ")"; });
+                      children.append("text")
+                      .attr("class", "ctext")
+                      .text(function(d) {
+                            var val = d.value;
+                            if (!isNaN(val)) {
+                            if(!d._children){
+                            if(val==0.5){
+                            return(d.position_date+": " + "<0.5%");
+                            }else{
+                            return(d.position_date+": " + val.toFixed(2) + "%");}
+                            }
+                            }
+                            })
+                            .call(text2);
+                            
+                            g.append("rect")
+                            .attr("class", "parent")
+                            .call(rect);
+                            
+                            var t = g.append("text")
+                            .attr("class", "ptext")
+                            .attr("dy", ".75em")
+                            
+                            t.append("tspan")
+                            .text(function(d) { if(d._children[0]._children == undefined){
+                                  return d.key;
+                                  }
+                                  else{
+                                  return d.key.slice(0, 6);
+                                  }
+                                  });
+                                  t.append("tspan")
+                                  .attr("dy", "1.0em")
+                                  .text(function(d) { return formatNumber(d.value); });
+                                  t.call(text);
+                                  
+                                  g.selectAll("rect")
+                                  .style("fill", function(d) {
+                                         if (d._children!= undefined) {
+                                         if(!d._children){
+                                         return d.parent.color;
+                                         }
+                                         else{
+                                         return color(d.key);
+                                         }
+                                         }
+                                         else{
+                                         //console.log(d._children[0]);
+                                         return color(d.key);
+                                         }
+                                         });
+                                         
+                                         
+                                         selectname.selectAll("option")
+                                         .data(d._children)
+                                         .enter().append("option")
+                                         .attr("selectedValue", function(d) { return d.key; })
+                                         .text(function(d) { return d.key; })
+                                         
+                                         selectname.on("change", onchange);
+                                         
+                                         function onchange() {
+                                             selectedValue = d3.select('select').property('value');
+                                             
+                                             g.selectAll('rect').filter(function(d){
+                                                                        if(d.key == selectedValue){
+                                                                        return d.key;
+                                                                        }
+                                                                        //alert(selectedValue);
+                                                                        })
+                                                                        .transition()
+                                                                        .duration(500)
+                                                                        .style('opacity', 1)
+                                                                        .transition()
+                                                                        .duration(500)
+                                                                        .style('opacity', 0.2)
+                                                                        .transition()
+                                                                        .duration(500)
+                                                                        .style('opacity', 1)
+                                                                        .transition()
+                                                                        .duration(500)
+                                                                        .style('opacity', 0.2)
+                                                                        .transition()
+                                                                        .duration(500)
+                                                                        .style('opacity', 1)
+                                                                        .transition()
+                                                                        .duration(500)
+                                                                        .style('opacity', 0.7);
+                                                                        
+                                         };
+                                         
+                                         
+                                         function transition(d) {
+                                             //console.log(d)
+                                             if (transitioning || !d) return;
+                                             if (d._children[0]._children == undefined) {  // Leaf nodes have no children.
+                                                 window.open('barchart/index.html?company=' + d.values[0].issuer_name, '_blank');
+                                                 return;
+                                             }
+                                             
+                                             transitioning = true;
+                                             
+                                             var g2 = display(d),
+                                             t1 = g1.transition().duration(750),
+                                             t2 = g2.transition().duration(750);
+                                             
+                                             // Update the domain only after entering new elements.
+                                             x.domain([d.x, d.x + d.dx]);
+                                             y.domain([d.y, d.y + d.dy]);
+                                             
+                                             // Enable anti-aliasing during the transition.
+                                             svg.style("shape-rendering", null);
+                                             
+                                             // Draw child nodes on top of parent nodes.
+                                             svg.selectAll(".depth").sort(function(a, b) { return a.depth - b.depth; });
+                                             
+                                             // Fade-in entering text.
+                                             g2.selectAll("text").style("fill-opacity", 0);
+                                             
+                                             // Transition to the new view.
+                                             t1.selectAll(".ptext").call(text).style("fill-opacity", 0);
+                                             t1.selectAll(".ctext").call(text2).style("fill-opacity", 0);
+                                             t2.selectAll(".ptext").call(text).style("fill-opacity", 1);
+                                             t2.selectAll(".ctext").call(text2).style("fill-opacity", 1);
+                                             t1.selectAll("rect").call(rect);
+                                             t2.selectAll("rect").call(rect);
+                                             
+                                             // Remove the old node when the transition is finished.
+                                             t1.remove().each("end", function() {
+                                                              svg.style("shape-rendering", "crispEdges");
+                                                              transitioning = false;
+                                                              });
+                                         }
+                                         
+                                         return g;
         }
+        
         function text(text) {
             var offset = 6;
             text.selectAll("tspan")
@@ -552,6 +702,7 @@
             text.attr("x", function(d) { return x(d.x + d.dx/2)-offset ; })
             .attr("y", function(d) { return y(d.y + d.dy/2)-offset ; })
             .style("font-weight", "bold");
+            
             var minFontSize = 4;
             var maxFontSize = 20;
             for (i = maxFontSize; i >= minFontSize; i--) {
@@ -564,84 +715,41 @@
                            })
             }
         }
+        
         function text2(text) {
             text.attr("x", function(d) { return x(d.x + d.dx/2) - this.getComputedTextLength()/2; })
             .attr("y", function(d) { return y(d.y + d.dy/2) + 12; })
             .style("opacity", function(d) { return this.getComputedTextLength() < x(d.x + d.dx) - x(d.x) ? 1 : 0; });
         }
-        /*function text(text) {
-            var offset = 6;
-            text.selectAll("tspan")
-            .attr("x", function(d) { return x(d.x) + offset; })
-            text.attr("x", function(d) { return x(d.x) + offset; })
-            .attr("y", function(d) { return y(d.y) + offset; })
-            .style("font-weight", "bold");
-            var minFontSize = 4;
-            var maxFontSize = 20;
-            for (i = maxFontSize; i >= minFontSize; i--) {
-                text.style("font-size", function(d){
-                           if ((this.getComputedTextLength() + offset) < x(d.x + d.dx) - x(d.x)) {
-                           //cause an error to avoid actual errors
-                           return false;
-                           }
-                           return i + "px";
-                           })
-            }
-        }
-        function text2(text) {
-            text.attr("x", function(d) { return x(d.x + d.dx) - this.getComputedTextLength() - 6; })
-            .attr("y", function(d) { return y(d.y + d.dy) - 6; })
-            .style("opacity", function(d) { return this.getComputedTextLength() < x(d.x + d.dx) - x(d.x) ? 1 : 0; });
-        }*/
+        
         function rect(rect) {
             rect.attr("x", function(d) { return x(d.x); })
             .attr("y", function(d) { return y(d.y); })
             .attr("width", function(d) { return x(d.x + d.dx) - x(d.x); })
             .attr("height", function(d) { return y(d.y + d.dy) - y(d.y); });
         }
+        
         function name(d) {
             var val = +d["value"];  //string to int
+            
             val = val.toFixed(2); //truncate decimals
             if (d.parent) {
-                return name(d.parent) + " / " + d.key + " (" + val + "%)"
+                return name(d.parent) + " / " + d.key + " (" + val + "%)" +" Click here to return"
             } else {
-                return d.key /*+ " (" + val + "%)"*/;
+                return d.key/*+ " (" + val + "%)"*/;
             }
         }
-    }
-    var formatmon = function (date) {
-        var y = date.getFullYear();
-        var m = date.getMonth() + 1;
-        m = m &lt; 10 ? ('0' + m) : m;
-        var d = date.getDate();
-        d = d &lt; 10 ? ('0' + d) : d;
-        return y + '-' + m + '-' + d;
-    };
-    var url="http://ivis.southeastasia.cloudapp.azure.com:5000/currentPosition/"
-    if (window.location.hash === "") {
-        d3.json(url, function(err, res) {
-                if (!err) {
-                //if(formatmon(res.position_date)=="2019-01-28"){
-                //console.log(res.position_date);
-                var data = d3.nest().key(function(d) { return d.issuer_name; }).key(function(d) { return d.position_holder; }).entries(res);
-                var ph = d3.nest().key(function(d){return d.issuer_name;}).key(function(d){return d.isin; }).entries(res);
-                main({title: "ShortsellingOverview"}, {key: "Short Stocks", values: data});
-                //console.log(data)//console.log(data);
-                 //   }
-                }
-                });
-    }
         </script>
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Plugin JavaScript -->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for this template -->
-  <script src="js/resume.min.js"></script>
-
-</body>
-
+        <!-- Bootstrap core JavaScript -->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        
+        <!-- Plugin JavaScript -->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+        
+        <!-- Custom scripts for this template -->
+        <script src="js/resume.min.js"></script>
+        
+    </body>
+    
 </html>
