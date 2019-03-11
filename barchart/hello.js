@@ -12,10 +12,13 @@ Promise.all([
 ]).then(function(data)
 {
   allCompanies = data[0];
+  console.log(allCompanies)
   for (let i = 0; i < allCompanies.length; i++) {
     var splot = allCompanies[i].split(" \(");
-    if(splot.length > 1)
+    if(splot.length > 1){
       allCompanies[i] = splot[splot.length-2];
+    }
+    allCompanies[i] = allCompanies[i].trim();
   }
   allCompanies = allCompanies.filter(function(item, i, ar){ return ar.indexOf(item) === i; });  // get unique values
   allCompanies.sort();
