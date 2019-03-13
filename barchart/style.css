@@ -20,11 +20,13 @@ body {
 
 .bar-positive {
   fill: #396a93;
+  pointer-events: all;
   opacity: 1;
 }
 
 .bar-negative {
   fill: #650065;
+  pointer-events: all;
   opacity: 1;
 }
 

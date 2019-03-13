@@ -254,8 +254,8 @@ function update(trades, curpos) {
     var accumulatedTrades = [];
     var accumulatedTradesNeg = [];
     for (var i = 0; i < 12; i++){
-      accumulatedTrades.push({"month":months[i], "value":0});
-      accumulatedTradesNeg.push({"month":months[i], "value":0});
+      accumulatedTrades.push({"month":months[i], "value":0, "t":[]});
+      accumulatedTradesNeg.push({"month":months[i], "value":0, "t":[]});
     }
 
     trades.forEach(function(d) {
@@ -281,7 +281,6 @@ function update(trades, curpos) {
     trades = trades.filter(function(d){return d.year == year})
     curpos = curpos.filter(function(d){return d.year == year})
 
-
     trades.forEach(function(d) {
       var value = d.volume;
       if (d.trade == "Avyttring") {
@@ -289,10 +288,12 @@ function update(trades, curpos) {
       }
       if (value >= 0) {
         accumulatedTrades[d.month].value += value;
+        accumulatedTrades[d.month].t.push(d)
       }
       else
       {
         accumulatedTradesNeg[d.month].value += value;
+        accumulatedTradesNeg[d.month].t.push(d)
       }
     })
 
@@ -334,6 +335,55 @@ function update(trades, curpos) {
         return xScale(i);
       })
       .attr("width", xScale.bandwidth())
+      .on("mouseover", function(d) {
+        barTrades = d.t
+        if (barTrades.length == 0) {
+          return;
+        }
+        var tip = "Acquisitions during " + months[barTrades[0].month] + " " + barTrades[0].year + ":<br><br>"
+        barTrades.forEach(e => {
+          if (e.correction == "Ja") {
+            //skip
+          } else {
+            if (e.year > 2016 || (e.year == 2016 && e.month > 5)) {
+              //use structure of new insight data
+              tip += "Alias: " + e.alias_pdmr + ", " + e.position + "<br>"
+              if (e.security_type != "") tip += "Security type: " + e.security_type + "<br>"
+              tip += "Transaction category: " + e.trade + "<br>"
+              if (e.unit == "Belopp") {
+                tip += "Total Value: " + e.volume + " " + e.currency + "<br>"
+              } else {
+                val = Math.trunc(e.volume * e.price)
+                tip += "Total Value: " + val + " " + e.currency + "<br>"
+              }
+              tip += "Transaction Date: " + e.transaction_date + "<br><br>"
+            } else {
+              //use structure of the older insight data
+              tip += "Alias: " + e.alias_reporter + ", " + e.position + "<br>"
+              tip += "Transaction category: " + e.trade + "<br>"
+              if (e.security_type != "") tip += "Security type: " + e.security_type + "<br>"
+              var val = e.total
+              if (val == 0) { val = e.volume }
+              tip += "Total Value: " + val + " kr <br>"
+              tip += "Transaction Date: " + e.transaction_date + "<br><br>"
+            }
+          }
+        });
+        tooltip.html(tip)
+          .style("width", "auto")
+          .style("height", "auto")
+          .style("padding", "10px")
+          .style("left", (d3.event.pageX) + "px")
+          .style("top", (d3.event.pageY - 28) + "px");
+        tooltip.transition()
+          .duration(200)
+          .style("opacity", .9);
+        })
+      .on("mouseout", function(d) {
+          tooltip.transition()
+              .duration(500)
+              .style("opacity", 0);
+      })
       .merge(bars)
       .transition().duration(transitionTime)
       .attr("class", "bar bar-positive")
@@ -353,6 +403,56 @@ function update(trades, curpos) {
         return xScale(i);
       })
       .attr("width", xScale.bandwidth())
+      .on("mouseover", function(d) {
+        barTrades = d.t
+        if (barTrades.length == 0) {
+          return;
+        }
+        console.log(d.t)
+        var tip = "Disposals during " + months[barTrades[0].month] + " " + barTrades[0].year + ":<br><br>"
+        barTrades.forEach(e => {
+          if (e.correction == "Ja") {
+            //skip
+          } else {
+            if (e.year > 2016 || (e.year == 2016 && e.month > 5)) {
+              //use structure of new insight data
+              tip += "Alias: " + e.alias_pdmr + ", " + e.position + "<br>"
+              if (e.security_type != "") tip += "Security type: " + e.security_type + "<br>"
+              tip += "Transaction category: " + e.trade + "<br>"
+              if (e.unit == "Belopp") {
+                tip += "Total Value: " + e.volume + " " + e.currency + "<br>"
+              } else {
+                val = Math.trunc(e.volume * e.price)
+                tip += "Total Value: " + val + " " + e.currency + "<br>"
+              }
+              tip += "Transaction Date: " + e.transaction_date + "<br><br>"
+            } else {
+              //use structure of the older insight data
+              tip += "Alias: " + e.alias_reporter + ", " + e.position + "<br>"
+              tip += "Transaction category: " + e.trade + "<br>"
+              if (e.security_type != "") tip += "Security type: " + e.security_type + "<br>"
+              var val = e.total
+              if (val == 0) { val = e.volume }
+              tip += "Total Value: " + val + " kr <br>"
+              tip += "Transaction Date: " + e.transaction_date + "<br><br>"
+            }
+          }
+        });
+        tooltip.html(tip)
+          .style("width", "auto")
+          .style("height", "auto")
+          .style("padding", "10px")
+          .style("left", (d3.event.pageX) + "px")
+          .style("top", (d3.event.pageY - 28) + "px");
+        tooltip.transition()
+          .duration(200)
+          .style("opacity", .9);
+        })
+      .on("mouseout", function(d) {
+          tooltip.transition()
+              .duration(500)
+              .style("opacity", 0);
+      })
       .merge(barsNeg)
       .transition().duration(transitionTime)
       .attr("class", "bar bar-negative")
