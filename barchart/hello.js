@@ -225,6 +225,14 @@ function fullUpdate(newCompanyName) {
   insightURL2018 += ("?limit=" + limit) + ("&filter={\"Issuer\":\"" + encodeURIComponent(companyName) + "\"}")
   shortposURL += ("?limit=" + limit) + ("&filter={\"issuer_name\":\"" + encodeURIComponent(companyName) + "\"}")
 
+  //shortposURL = "http://127.0.0.1:5000/histPosition/?filter={\"issuer_name\":" + encodeURIComponent(companyName) + "\"}")
+  /*
+  var regex = "/" + companyName + "/i"
+  shortposURL += ("?limit=" + limit) + ("&filter={\"issuer_name\":" + regex + "}")
+  // {"issuer_name": {$regex: "betsson ab", $options: 'i'}}
+  // {"issuer_name": /Betsson AB/i}
+  */
+
   var useLocalData = false
   var insightSource = insightURL
   var insightSource2018 = insightURL2018
@@ -235,18 +243,45 @@ function fullUpdate(newCompanyName) {
     shortposSource = shortposLocal
   }
 
-  Promise.all([
-    d3.json(insightSource),
-    d3.json(shortposSource),
-    d3.json(insightSource2018)
-  ]).then(function(data)
-  {
-    trades = data[0]
-    curpos = data[1]
-    trades = trades.concat(data[2]);
-    update(trades, curpos)
-  });
-
+  // HACK: short position name bug hack
+  d3.json(shortposSource).then(function(data) {
+    if (data.length > 0) {
+      var isin = data[0].isin
+      shortposSource2 = "http://ivis.southeastasia.cloudapp.azure.com:5000/histPosition/?limit=50&filter={\"isin\":\"" + isin + "\"}"
+      d3.json(shortposSource2).then(function(data2) {
+        var altName = ""
+        data2.forEach(function(d){
+          if (d.issuer_name != companyName) { altName = d.issuer_name }
+        })
+        shortposSource3 = "http://ivis.southeastasia.cloudapp.azure.com:5000/histPosition/?limit=10000&filter={\"issuer_name\":\"" + encodeURIComponent(altName) + "\"}"
+        Promise.all([
+          d3.json(insightSource),
+          d3.json(shortposSource),
+          d3.json(insightSource2018),
+          d3.json(shortposSource3)
+        ]).then(function(data)
+        {
+          trades = data[0]
+          curpos = data[1]
+          trades = trades.concat(data[2])
+          curpos = curpos.concat(data[3]);
+          update(trades, curpos)
+        });
+      })
+    } else {
+      Promise.all([
+        d3.json(insightSource),
+        d3.json(shortposSource),
+        d3.json(insightSource2018)
+      ]).then(function(data)
+      {
+        trades = data[0]
+        curpos = data[1]
+        trades = trades.concat(data[2]);
+        update(trades, curpos)
+      });
+    }
+  })
 }
 
 function update(trades, curpos) {
@@ -408,7 +443,6 @@ function update(trades, curpos) {
         if (barTrades.length == 0) {
           return;
         }
-        console.log(d.t)
         var tip = "Disposals during " + months[barTrades[0].month] + " " + barTrades[0].year + ":<br><br>"
         barTrades.forEach(e => {
           if (e.correction == "Ja") {
